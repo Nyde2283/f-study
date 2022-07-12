@@ -14,9 +14,9 @@ def affichage(t):
 
      table = Table(box=box.SIMPLE, padding=(0,2,0,2), leading=1)
      for i in range(len(t[0])):
-          table.add_column(t[0][i], justify='center')
+          table.add_column(t[0][i], justify='center') #ajout des en-têtes de colonnes un par un (première ligne de t)
      for i in range(1, len(t)):
-          table.add_row(*t[i])
+          table.add_row(*t[i]) #ajout des lignes une par une
 
      console = Console()
-     console.print(table)
+     console.print(table) # affichage de la table
