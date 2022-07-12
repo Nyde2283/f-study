@@ -1,3 +1,27 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def generate_table_affine(zero, signe, varia):
     '''Génère un tableau de signe et de variation pour une fonction affine'''
     if zero!=None:
