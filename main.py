@@ -5,7 +5,7 @@ from rich import box
 
 
 
-def affichage(t):
+def affichage(t, function, derivee):
      assert type(t)==list, f't doit être une liste (type(t) = {type(t)})'
      assert len(t)>=2, f'Le tableau est trop petit (nb_lignes = {len(t)} < 2)'
      assert len(t[0])>=5, f'Le tableau est trop petit (nb_colonnes = {len(t[0])} < 4)'
@@ -20,6 +20,9 @@ def affichage(t):
 
      console = Console()
      console.print(table) # affichage de la table
+     print()
+     print(function, derivee, sep='   |   ')
+     print()
 
 
 def generate_table_affine(zero, signe, varia):
@@ -39,7 +42,7 @@ def anal_affine(a, b):
     assert type(a) in (int, float), f'a doit être de type int ou float (type(a) = {type(a)})'
     assert type(b) in (int, float), f'b doit être de type int ou float (type(b) = {type(b)})'
 
-    function = f'f(x) = '
+    function = 'f(x) = '
     if a==0:
         pass
     elif a==1:
@@ -52,6 +55,8 @@ def anal_affine(a, b):
         function += f'+{b}'
     else:
         function += f'{b}'
+    
+    derivee = f'f\'(x) = {a}'
 
     if a>0:
         zero = -b/a
@@ -75,4 +80,4 @@ def anal_affine(a, b):
         variation = '→'
     
     table = generate_table_affine(zero, signe, variation)
-    affichage(table)
+    affichage(table, function, derivee)
