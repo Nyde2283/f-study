@@ -77,6 +77,8 @@ def anal_affine(a, b):
         pass
     elif a==1:
         function += 'x'
+    elif a==-1:
+        function += '-x'
     else:
         function += f'{a}x'
     if b==0:
