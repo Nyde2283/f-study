@@ -47,11 +47,12 @@ def affichage(t, function, derivee):
     for i in range(1, len(t)):
         table.add_row(*t[i]) #ajout des lignes une par une
 
-    console = Console()
-    console.print(table) # affichage de la table
+    system('cls')
+    print('\n')
+    print(table) # affichage de la table
     print()
-    print(function, derivee, sep='   |   ')
-    print()
+    print(function, derivee, sep='\n')
+    print('\n\n')
 
 
 def generate_table_affine(zero, signe, varia):
