@@ -52,7 +52,9 @@ def affichage(t, function, derivee):
     print(table) # affichage de la table
     print()
     print(function, derivee, sep='\n')
-    print('\n\n')
+    print('\n')
+    print('[#63666A]Certaines valeurs peuvent être arrondies.[/#63666A]')
+    print('\n')
 
 
 def generate_table_affine(zero, signe, varia):
@@ -91,11 +93,11 @@ def anal_affine(a, b):
     derivee = f'f\'(x) = {a}'
 
     if a>0:
-        zero = -b/a
+        zero = round(-b/a, 3)
         signe = ('-', '+')
         variation = '⤴️'
     elif a<0:
-        zero = -b/a
+        zero = round(-b/a, 3)
         signe = ('+', '-')
         variation = '⤵️'
     elif a==0 and b>0:
