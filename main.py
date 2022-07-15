@@ -7,7 +7,7 @@ except:
     print('\nPour installer Rich :')
     print('- Ouvrez un terminal en administrateur')
     print('- Tapez la commande: pip install rich')
-    input('\nPress any key to exit')
+    input('\n Appuyez sur Enter pour quitter...')
 from rich import print, box
 
 
@@ -62,7 +62,7 @@ def affichage(t, function, derivee):
     print(function, derivee, sep='\n')
     print('\n')
     print('[#63666A]Certaines valeurs peuvent être arrondies.[/#63666A]')
-    print('\n')
+    input('\nAppuyer sur Enter pour quitter...')
 
 
 def generate_table_affine(zero, signe, varia):
