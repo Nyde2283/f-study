@@ -111,3 +111,7 @@ def anal_affine(a, b):
     
     table = generate_table_affine(zero, signe, variation)
     affichage(table, function, derivee)
+
+
+
+selection()
