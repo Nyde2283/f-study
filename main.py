@@ -20,11 +20,11 @@ def selection():
     print('1: f(x) = [i green]a[/i green]x+[i green]b[/i green]')
     print('2: f(x) = [i green]a[/i green]x²+[i green]b[/i green]x+[i green]c[/i green]   [i #63666A](indidponible pour le moment)[/i #63666A]')
     print('\n')
-    select = int(input('Fontion du type : '))
+    select = input('Fontion du type : ')
     system('cls')
 
-    if select == 1: selection_affine()
-    elif select == 2: selection()
+    if select == '1': selection_affine()
+    elif select == '2': selection()
     else: selection()
 
 
