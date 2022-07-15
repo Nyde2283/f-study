@@ -1,9 +1,38 @@
-from rich.console import Console
 from rich.table import Table
-from rich import box
+from rich import print, box
+from os import system
 
 
 
+
+def selection():
+    system('cls')
+    print('\n')
+    print('Sélectionnez la forme de la fonction :\n')
+    print('1: f(x) = [i green]a[/i green]x+[i green]b[/i green]')
+    print('2: f(x) = [i green]a[/i green]x²+[i green]b[/i green]x+[i green]c[/i green]   [i #63666A](indidponible pour le moment)[/i #63666A]')
+    print('\n')
+    select = int(input('Fontion du type : '))
+    system('cls')
+
+    if select == 1: selection_affine()
+    elif select == 2: selection()
+    else: selection()
+
+
+def selection_affine():
+    print()
+    print('f(x) = [i green blink]a[/i green blink]x+[i green]b[/i green]\n')
+    a = float(input('a = '))
+    if a.is_integer(): a = int(a)
+
+    system('cls')
+    print()
+    print(f'f(x) = [green]{a}[/green]x+[i green blink]b[/i green blink]\n')
+    b = float(input('b = '))
+    if b.is_integer(): b = int(b)
+
+    anal_affine(a, b)
 
 def affichage(t, function, derivee):
     assert type(t)==list, f't doit être une liste (type(t) = {type(t)})'
@@ -18,11 +47,12 @@ def affichage(t, function, derivee):
     for i in range(1, len(t)):
         table.add_row(*t[i]) #ajout des lignes une par une
 
-    console = Console()
-    console.print(table) # affichage de la table
+    system('cls')
+    print('\n')
+    print(table) # affichage de la table
     print()
-    print(function, derivee, sep='   |   ')
-    print()
+    print(function, derivee, sep='\n')
+    print('\n\n')
 
 
 def generate_table_affine(zero, signe, varia):
@@ -81,3 +111,7 @@ def anal_affine(a, b):
     
     table = generate_table_affine(zero, signe, variation)
     affichage(table, function, derivee)
+
+
+
+selection()
