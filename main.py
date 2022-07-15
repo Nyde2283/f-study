@@ -1,6 +1,14 @@
-from rich.table import Table
-from rich import print, box
 from os import system
+try:
+    from rich.table import Table
+except:
+    print('\nLe bibliothèque Rich n\'est pas installé sur votre ordinateur. Elle est indispensable pour afficher les tableaux.')
+    print('Pour plus d\'informations consultez la page PyPi ( https://pypi.org/project/rich/ ) \nou la page GitHub ( https://github.com/Textualize/rich ) du projet.')
+    print('\nPour installer Rich :')
+    print('- Ouvrez un terminal en administrateur')
+    print('- Tapez la commande: pip install rich')
+    input('\nPress any key to exit')
+from rich import print, box
 
 
 
