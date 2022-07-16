@@ -71,23 +71,23 @@ def anal_affine(a, b):
 
     derivee = f'[#B4009E]f\'[/#B4009E](x) = {a}'
 
-    if a>0:
+    if a>0: #courbe croissante
         zero = round(-b/a, 3)
         signe = ('-', '+')
         variation = '⤴️'
-    elif a<0:
+    elif a<0: #courbe décroissante
         zero = round(-b/a, 3)
         signe = ('+', '-')
         variation = '⤵️'
-    elif a==0 and b>0:
+    elif a==0 and b>0: #courbe constante et f(x)>0
         zero = None
         signe = ('+')
         variation = '→'
-    elif a==0 and b<0:
+    elif a==0 and b<0: #courbe constante et f(x)<0
         zero = None
         signe = ('-')
         variation = '→'
-    else:
+    else: #courbe constante et f(x)=0
         zero = None
         signe = ('0')
         variation = '→'
