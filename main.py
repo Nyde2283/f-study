@@ -118,7 +118,7 @@ def anal_affine(a, b):
         variation = '→'
     else:
         zero = None
-        signe = ('', '')
+        signe = ('0')
         variation = '→'
     
     table = generate_table_affine(zero, signe, variation)
