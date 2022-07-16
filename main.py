@@ -98,7 +98,7 @@ def anal_affine(a, b):
     else:
         function += f'{b}'
     
-    derivee = f'f\'(x) = {a}'
+    derivee = f'[#B4009E]f\'[/#B4009E](x) = {a}'
 
     if a>0:
         zero = round(-b/a, 3)
