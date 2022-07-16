@@ -84,19 +84,19 @@ def anal_affine(a, b):
 
     function = 'f(x) = '
     if a==0:
-        pass
-    elif a==1:
-        function += 'x'
-    elif a==-1:
-        function += '-x'
+        if b==0:
+            function += '0'
     else:
-        function += f'{a}x'
-    if b==0:
-        pass
-    elif b>0:
-        function += f'+{b}'
-    else:
-        function += f'{b}'
+        if a==1:
+            function += 'x'
+        elif a==-1:
+            function += '-x'
+        else:
+            function += f'{a}x'
+        if b>0:
+            function += f'+{b}'
+        else:
+            function += f'{b}'
     
     derivee = f'[#B4009E]f\'[/#B4009E](x) = {a}'
 
