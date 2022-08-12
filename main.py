@@ -24,7 +24,7 @@ def selection():
     system('cls')
 
     if select == '1': selection_affine()
-    elif select == '2': selection()
+    elif select == '2': selection_2nd_degre()
     else: selection()
 
 def selection_affine():
@@ -41,6 +41,26 @@ def selection_affine():
 
     anal_affine(a, b)
 
+def selection_2nd_degre():
+    print()
+    print('f(x) = [i green blink]a[/i green blink]x²+[i green]b[/i green]x+[i green]c[/i green]\n')
+    a = float(input('a = '))
+    if a.is_integer(): a = int(a)
+
+    system('cls')
+    print()
+    print(f'f(x) = [green]{a}[/green]x²+[i green blink]b[/i green blink]x+[i green]c[/i green]\n')
+    b = float(input('b = '))
+    if b.is_integer(): b = int(b)
+
+    system('cls')
+    print()
+    print(f'f(x) = [green]{a}[/green]x²+[green]{b}[/green]x+[i green blink]c[/i green blink]\n')
+    c = float(input('c = '))
+    if c.is_integer(): c = int(c)
+
+    if a!=0: anal_2nd_degre(a, b, c)
+    else: anal_affine(b, c)
 
 def generate_table_affine(zero, signe, varia):
     '''Génère un tableau de signe et de variation pour une fonction affine'''
