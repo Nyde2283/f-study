@@ -140,7 +140,7 @@ def anal_2nd_degre(a, b, c):
     elif b<0: derivee += f'{b}'
 
     Sx = -b/(2*a)
-    S = (round(Sx, 3), f(Sx, 3))
+    S = (round(Sx, 3), round(f(Sx), 3))
 
     delta = b**2-4*a*c
     if delta>0:
@@ -154,7 +154,8 @@ def anal_2nd_degre(a, b, c):
         x0 = round(-b/(2*a), 3)
         racines = (x0)
 
-    [t_signe, t_varia] = generate_table_2nd_degre(a, racines, S)
+    tableaux = generate_table_2nd_degre(a, racines, S)
+    affichage(tableaux, function, derivee)
 
 def generate_table_2nd_degre(a, racines, S):
     match racines:
