@@ -9,6 +9,7 @@ except:
     print('- Tapez la commande: pip install rich')
     input('\n Appuyez sur Enter pour quitter...')
 from rich import print, box
+from math import sqrt
 
 
 
@@ -115,6 +116,76 @@ def anal_affine(a, b):
     table = generate_table_affine(zero, signe, variation)
     affichage(table, function, derivee)
 
+
+def anal_2nd_degre(a, b, c):
+    '''Analyse une fonction de la forme f(x) = ax²+bx+c'''
+
+    def f(x):
+        return a*x**2+b*x+c
+
+    #Convertie la fonction en string
+    function = 'f(x) = '
+    if a==1: function += 'x²'
+    elif a==-1: function += '-x²'
+    else: function += f'{a}x²'
+    if b==1: function += '+x'
+    elif b==-1: function += '-x'
+    elif b>0: function += f'+{b}x'
+    elif b<0: function += f'{b}x'
+    if c>0: function += f'+{c}'
+    elif c<0: function += f'{c}'
+
+    derivee = f'f\'(x) = {a*2}x'
+    if b>0: derivee += f'+{b}'
+    elif b<0: derivee += f'{b}'
+
+    Sx = -b/(2*a)
+    S = (round(Sx, 3), f(Sx, 3))
+
+    delta = b**2-4*a*c
+    if delta>0:
+        x1 = round((-b-sqrt(delta))/(2*a), 3)
+        x2 = round((-b+sqrt(delta))/(2*a), 3)
+        if x1<x2:
+            racines = (x1, x2)
+        else:
+            racines = (x2, x1)
+    elif delta==0:
+        x0 = round(-b/(2*a), 3)
+        racines = (x0)
+
+    [t_signe, t_varia] = generate_table_2nd_degre(a, racines, S)
+
+def generate_table_2nd_degre(a, racines, S):
+    match racines:
+        case [x1, x2]:
+            t_signe = [['', 'x=', '-∞', '', f'{racines[0]}', '', f'{racines[1]}', '', '+∞']]
+            if a>0:
+                t_signe.append(['signe', 'f(x)', '', '+', '0', '-', '0', '+', ''])
+            else:
+                t_signe.append(['signe', 'f(x)', '', '-', '0', '+', '0', '-', ''])
+        case [x0]:
+            t_signe = [['', 'x=', '-∞', '', f'{racines[0]}', '', '+∞']]
+            if a>0:
+                t_signe.append(['signe', 'f(x)', '', '+', '0', '+', ''])
+            else:
+                t_signe.append(['signe', 'f(x)', '', '-', '0', '-', ''])
+        case _:
+            t_signe = [['', 'x=', '-∞', '', '+∞']]
+            if a>0:
+                t_signe.append(['signe', 'f(x)', '', '+', ''])
+            else:
+                t_signe.append(['signe', 'f(x)', '', '-', ''])
+    
+    t_varia = [['', 'x=', '-∞', '', f'{S[0]}', '', '+∞']]
+    if a>0:
+        t_varia.append(['signe', 'f\'(x)', '', '-', '0', '+', ''])
+        t_varia.append(['varia', 'f(x)', '', '↘', f'{S[1]}', '↗', ''])
+    else:
+        t_varia.append(['signe', 'f\'(x)', '', '+', '0', '-', ''])
+        t_varia.append(['varia', 'f(x)', '', '↗', f'{S[1]}', '↘', ''])
+
+    return [t_signe, t_varia]
 
 def affichage(t, function, derivee):
     assert type(t)==list, f't doit être une liste (type(t) = {type(t)})'
