@@ -23,7 +23,7 @@ def selection():
     console.print('\n')
     console.print('Sélectionnez la forme de la fonction :\n')
     console.print('[#61d6d6]1[/#61d6d6]: f(x) = [i green]a[/i green]x+[i green]b[/i green]')
-    console.print('[#61d6d6]2[/#61d6d6]: f(x) = [i green]a[/i green]x²+[i green]b[/i green]x+[i green]c[/i green]   [i #63666A](indidponible pour le moment)[/i #63666A]')
+    console.print('[#61d6d6]2[/#61d6d6]: f(x) = [i green]a[/i green]x²+[i green]b[/i green]x+[i green]c[/i green]')
     console.print('\n')
     select = input('Fontion du type : ')
     system('cls')
@@ -220,9 +220,9 @@ def affichage(tableaux, function, derivee):
     console.print('\n')
     console.print(function, derivee, sep='\n')
     console.print('\n')
-    console.print('[#63666A]Certaines valeurs peuvent être arrondies.[/#63666A]')
-    print('\n[#63666A]Pour faire une demande de nouvelle fonctionnalité \nou pour signaler un bug : [/#63666A]https://github.com/Nyde2283/f-study/issues')
-    console.input('\n\n[black on white]Appuyer sur Entrée pour quitter...[black on white]')
+    console.print('[#818488]Certaines valeurs peuvent être arrondies.[/#818488]')
+    print('\n\n[#818488]Pour faire une demande de nouvelle fonctionnalité \nou pour signaler un bug : [/#818488]https://github.com/Nyde2283/f-study/issues   [#63666A](Ctrl+Click)[/#63666A]')
+    console.input('\n\n[black on white]Appuyer sur Entrée pour quitter...[/black on white]')
 
 
 
