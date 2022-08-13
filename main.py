@@ -153,6 +153,8 @@ def anal_2nd_degre(a, b, c):
     elif delta==0:
         x0 = round(-b/(2*a), 3)
         racines = (x0)
+    else:
+        racines = None
 
     tableaux = generate_table_2nd_degre(a, racines, S)
     affichage(tableaux, function, derivee)
