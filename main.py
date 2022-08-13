@@ -63,6 +63,33 @@ def selection_2nd_degre():
     if a!=0: anal_2nd_degre(a, b, c)
     else: anal_affine(b, c)
 
+
+def function_to_string(facteurs: list):
+    function = 'f(x) = '
+    match facteurs:
+        case [a, b]:
+                if a==1: function += 'x'
+                elif a==-1: function += '-x'
+                elif a!=0: function += f'{a}x'
+
+                if b>0: function += f'+{b}'
+                elif b<0: function += f'{b}'
+
+                if a==0 and b==0: function += '0'
+        case [a, b, c]:
+                if a==1: function += 'x²'
+                elif a==-1: function += '-x²'
+                else: function += f'{a}x²'
+
+                if b==1: function += '+x'
+                elif b==-1: function += '-x'
+                elif b>0: function += f'+{b}x'
+                elif b<0: function += f'{b}x'
+                
+                if c>0: function += f'+{c}'
+                elif c<0: function += f'{c}'
+    return function
+
 def generate_table_affine(zero, signe, varia):
     '''Génère un tableau de signe et de variation pour une fonction affine'''
     if zero!=None:
@@ -80,15 +107,7 @@ def anal_affine(a, b):
     assert type(a) in (int, float), f'a doit être de type int ou float (type(a) = {type(a)})'
     assert type(b) in (int, float), f'b doit être de type int ou float (type(b) = {type(b)})'
 
-    function = 'f(x) = '
-    if a==0:
-        if b==0: function += '0' #0x+0 = x
-    else:
-        if a==1: function += 'x' #1x = x
-        elif a==-1: function += '-x' #-1x = -x
-        else: function += f'{a}x'
-        if b>0: function += f'+{b}' #pour éviter d'afficher 5x+-8 (à la place de 5x-8) par exemple
-        else: function += f'{b}'
+    function = function_to_string([a, b])
 
     derivee = f'[#B4009E]f\'[/#B4009E](x) = {a}'
 
@@ -124,16 +143,7 @@ def anal_2nd_degre(a, b, c):
         return a*x**2+b*x+c
 
     #Convertie la fonction en string
-    function = 'f(x) = '
-    if a==1: function += 'x²'
-    elif a==-1: function += '-x²'
-    else: function += f'{a}x²'
-    if b==1: function += '+x'
-    elif b==-1: function += '-x'
-    elif b>0: function += f'+{b}x'
-    elif b<0: function += f'{b}x'
-    if c>0: function += f'+{c}'
-    elif c<0: function += f'{c}'
+    function = function_to_string([a, b, c])
 
     derivee = f'f\'(x) = {a*2}x'
     if b>0: derivee += f'+{b}'
