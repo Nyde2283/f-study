@@ -225,8 +225,8 @@ def affichage(tableaux, function, derivee):
     console.input('\n\n[black on white]Appuyer sur Entrée pour quitter...[/black on white]')
 
 
-
-selection()
+while True:
+    selection()
 
 
 
