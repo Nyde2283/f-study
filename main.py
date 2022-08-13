@@ -221,6 +221,7 @@ def affichage(tableaux, function, derivee):
     console.print(function, derivee, sep='\n')
     console.print('\n')
     console.print('[#63666A]Certaines valeurs peuvent être arrondies.[/#63666A]')
+    print('\n[#63666A]Pour faire une demande de nouvelle fonctionnalité \nou pour signaler un bug : [/#63666A]https://github.com/Nyde2283/f-study/issues')
     console.input('\n\n[black on white]Appuyer sur Entrée pour quitter...[black on white]')
 
 
