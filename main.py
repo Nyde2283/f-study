@@ -100,8 +100,6 @@ def function_to_string(facteurs: list):
 
 def anal_affine(a, b):
     '''Analyse une fonction de la forme f(x) = ax+b'''
-    assert type(a) in (int, float), f'a doit être de type int ou float (type(a) = {type(a)})'
-    assert type(b) in (int, float), f'b doit être de type int ou float (type(b) = {type(b)})'
 
     function = function_to_string([a, b])
 
