@@ -205,15 +205,15 @@ def generate_table_2nd_degre(a, racines, S):
 
 def affichage(tableaux, function, derivee):
     system('cls')
+    print('\n')
     for t in tableaux:
         table = Table(box=box.SIMPLE, padding=(0,2,0,2), leading=1)
         for i in range(len(t[0])):
             table.add_column(t[0][i], justify='center') #ajout des en-têtes de colonnes un par un (première ligne de t)
         for i in range(1, len(t)):
             table.add_row(*t[i]) #ajout des lignes une par une
-        print('\n')
         print(table) # affichage de la table
-    print()
+    print('\n')
     print(function, derivee, sep='\n')
     print('\n')
     print('[#63666A]Certaines valeurs peuvent être arrondies.[/#63666A]')
