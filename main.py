@@ -71,11 +71,14 @@ def function_to_string(facteurs: list):
                 if a==1: function += 'x'
                 elif a==-1: function += '-x'
                 elif a!=0: function += f'{a}x'
-
+                else:
+                    if b!=0: function += f'{b}'
+                    else: function += '0'
+                    return function
+                
                 if b>0: function += f'+{b}'
                 elif b<0: function += f'{b}'
 
-                if a==0 and b==0: function += '0'
         case [a, b, c]:
                 if a==1: function += 'x²'
                 elif a==-1: function += '-x²'
