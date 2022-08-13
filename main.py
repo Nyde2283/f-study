@@ -8,19 +8,23 @@ except:
     print('- Ouvrez un terminal en administrateur')
     print('- Tapez la commande: python -m pip install rich')
     input('\n Appuyez sur Enter pour quitter...')
+from rich.console import Console
 from rich import print, box
 from math import sqrt
+
+
+console = Console(highlight=False)
 
 
 
 
 def selection():
     system('cls')
-    print('\n')
-    print('Sélectionnez la forme de la fonction :\n')
-    print('1: f(x) = [i green]a[/i green]x+[i green]b[/i green]')
-    print('2: f(x) = [i green]a[/i green]x²+[i green]b[/i green]x+[i green]c[/i green]   [i #63666A](indidponible pour le moment)[/i #63666A]')
-    print('\n')
+    console.print('\n')
+    console.print('Sélectionnez la forme de la fonction :\n')
+    console.print('[#61d6d6]1[/#61d6d6]: f(x) = [i green]a[/i green]x+[i green]b[/i green]')
+    console.print('[#61d6d6]2[/#61d6d6]: f(x) = [i green]a[/i green]x²+[i green]b[/i green]x+[i green]c[/i green]   [i #63666A](indidponible pour le moment)[/i #63666A]')
+    console.print('\n')
     select = input('Fontion du type : ')
     system('cls')
 
@@ -29,34 +33,34 @@ def selection():
     else: selection()
 
 def selection_affine():
-    print()
-    print('f(x) = [i green blink]a[/i green blink]x+[i green]b[/i green]\n')
+    console.print()
+    console.print('f(x) = [i green blink]a[/i green blink]x+[i green]b[/i green]\n')
     a = float(input('a = '))
     if a.is_integer(): a = int(a)
 
     system('cls')
-    print()
-    print(f'f(x) = [green]{a}[/green]x+[i green blink]b[/i green blink]\n')
+    console.print()
+    console.print(f'f(x) = [green]{a}[/green]x+[i green blink]b[/i green blink]\n')
     b = float(input('b = '))
     if b.is_integer(): b = int(b)
 
     anal_affine(a, b)
 
 def selection_2nd_degre():
-    print()
-    print('f(x) = [i green blink]a[/i green blink]x²+[i green]b[/i green]x+[i green]c[/i green]\n')
+    console.print()
+    console.print('f(x) = [i green blink]a[/i green blink]x²+[i green]b[/i green]x+[i green]c[/i green]\n')
     a = float(input('a = '))
     if a.is_integer(): a = int(a)
 
     system('cls')
-    print()
-    print(f'f(x) = [green]{a}[/green]x²+[i green blink]b[/i green blink]x+[i green]c[/i green]\n')
+    console.print()
+    console.print(f'f(x) = [green]{a}[/green]x²+[i green blink]b[/i green blink]x+[i green]c[/i green]\n')
     b = float(input('b = '))
     if b.is_integer(): b = int(b)
 
     system('cls')
-    print()
-    print(f'f(x) = [green]{a}[/green]x²+[green]{b}[/green]x+[i green blink]c[/i green blink]\n')
+    console.print()
+    console.print(f'f(x) = [green]{a}[/green]x²+[green]{b}[/green]x+[i green blink]c[/i green blink]\n')
     c = float(input('c = '))
     if c.is_integer(): c = int(c)
 
@@ -101,7 +105,7 @@ def anal_affine(a, b):
 
     function = function_to_string([a, b])
 
-    derivee = f'[#B4009E]f\'[/#B4009E](x) = {a}'
+    derivee = f'f\'(x) = {a}'
 
     if a!=0: x0 = round(-b/a, 3)
     else: x0 = None
@@ -205,19 +209,19 @@ def generate_table_2nd_degre(a, racines, S):
 
 def affichage(tableaux, function, derivee):
     system('cls')
-    print('\n')
+    console.print('\n')
     for t in tableaux:
         table = Table(box=box.SIMPLE, padding=(0,2,0,2), leading=1)
         for i in range(len(t[0])):
             table.add_column(t[0][i], justify='center') #ajout des en-têtes de colonnes un par un (première ligne de t)
         for i in range(1, len(t)):
             table.add_row(*t[i]) #ajout des lignes une par une
-        print(table) # affichage de la table
-    print('\n')
-    print(function, derivee, sep='\n')
-    print('\n')
-    print('[#63666A]Certaines valeurs peuvent être arrondies.[/#63666A]')
-    input('\nAppuyer sur Enter pour quitter...')
+        console.print(table) # affichage de la table
+    console.print('\n')
+    console.print(function, derivee, sep='\n')
+    console.print('\n')
+    console.print('[#63666A]Certaines valeurs peuvent être arrondies.[/#63666A]')
+    console.input('\n\n[black on white]Appuyer sur Entrée pour quitter...[black on white]')
 
 
 
