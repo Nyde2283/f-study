@@ -93,17 +93,6 @@ def function_to_string(facteurs: list):
                 elif c<0: function += f'{c}'
     return function
 
-def generate_table_affine(zero, signe, varia):
-    '''Génère un tableau de signe et de variation pour une fonction affine'''
-    if zero!=None:
-        t = [['', 'x=', '-∞', '', f'{zero}', '', '+∞'],
-             ['signe', 'f(x)', '', signe[0], '0', signe[1], ''],
-             ['varia', 'f(x)', '', varia, '', varia, '']]
-    else:
-        t = [['', 'x=', '-∞', '', '+∞'],
-             ['signe', 'f(x)', '', signe[0], ''],
-             ['varia', 'f(x)', '', varia, '']]
-    return [t]
 
 def anal_affine(a, b):
     '''Analyse une fonction de la forme f(x) = ax+b'''
@@ -114,30 +103,41 @@ def anal_affine(a, b):
 
     derivee = f'[#B4009E]f\'[/#B4009E](x) = {a}'
 
-    if a>0: #courbe croissante
-        zero = round(-b/a, 3)
-        signe = ('-', '+')
-        variation = '⤴️'
-    elif a<0: #courbe décroissante
-        zero = round(-b/a, 3)
-        signe = ('+', '-')
-        variation = '⤵️'
-    elif a==0 and b>0: #courbe constante et f(x)>0
-        zero = None
-        signe = ('+')
-        variation = '→'
-    elif a==0 and b<0: #courbe constante et f(x)<0
-        zero = None
-        signe = ('-')
-        variation = '→'
-    else: #courbe constante et f(x)=0
-        zero = None
-        signe = ('0')
-        variation = '→'
+    if a!=0: x0 = round(-b/a, 3)
+    else: x0 = None
     
-    tableau = generate_table_affine(zero, signe, variation)
-    affichage(tableau, function, derivee)
+    tableaux = generate_table_affine(x0, a, b)
+    affichage(tableaux, function, derivee)
 
+def generate_table_affine(x0, a, b):
+    '''Génère un tableau de signe et de variation pour une fonction affine'''
+    match x0:
+        case None:
+            t_signe = [['', 'x=', '-∞', '', '+∞']]
+            if b>0:
+                t_signe.append(['signe', 'f(x)', '', '+', ''])
+            elif b<0:
+                t_signe.append(['signe', 'f(x)', '', '-', ''])
+            else:
+                t_signe.append(['signe', 'f(x)', '', '0', ''])
+            t_signe.append(['varia', 'f(x)', '', '→', ''])
+            return [t_signe]
+        case _:
+            t_signe = [['', 'x=', '-∞', '', f'{x0}', '', '+∞']]
+            if a>0:
+                t_signe.append(['signe', 'f(x)', '', '-', '0', '+', ''])
+            else:
+                t_signe.append(['signe', 'f(x)', '', '+', '0', '-', ''])
+
+    t_varia = [['', 'x=', '-∞', '', '+∞']]
+    if a>0:
+        t_varia.append(['signe', 'f\'(x)', '', '+', ''])
+        t_varia.append(['varia', 'f(x)', '', '↗', ''])
+    elif a<0:
+        t_varia.append(['signe', 'f\'(x)', '', '-', ''])
+        t_varia.append(['varia', 'f(x)', '', '↘', ''])
+
+    return [t_signe, t_varia]
 
 def anal_2nd_degre(a, b, c):
     '''Analyse une fonction de la forme f(x) = ax²+bx+c'''
