@@ -11,6 +11,9 @@ except:
 from rich.console import Console
 from rich import print, box
 from math import sqrt
+from sys import version_info
+
+assert version_info >= (3, 10), 'f-study nécessite Python 3.10 ou supérieur'
 
 
 console = Console(highlight=False)
