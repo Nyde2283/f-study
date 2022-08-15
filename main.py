@@ -35,6 +35,19 @@ def selection():
     elif select == '2': selection_2nd_degre()
     else: selection()
 
+def def_number(msg, var):
+    console.print(msg)
+    response = console.input(f'{var} = ')
+    try:
+        response = float(response)
+    except:
+        i = response.index('/')
+        numerateur = float(response[:i])
+        denominateur = float(response[i+1:])
+        response = numerateur/denominateur
+    if response.is_integer(): response = int(response)
+    return response
+
 def selection_affine():
     console.print()
     console.print('f(x) = [i green blink]a[/i green blink]x+[i green]b[/i green]\n')
