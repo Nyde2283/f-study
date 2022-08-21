@@ -36,6 +36,7 @@ def selection():
     else: selection()
 
 def def_number(msg, var):
+    system('cls')
     console.print(msg)
     response = console.input(f'{var} = ')
     try:
