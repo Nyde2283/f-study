@@ -74,6 +74,10 @@ def selection_2nd_degre():
 
 def function_to_string(facteurs: list):
     function = 'f(x) = '
+
+    for i in range(len(facteurs)):
+        facteurs[i] = round(facteurs[i], 3)
+
     match facteurs:
         case [a, b]:
                 if a==1: function += 'x'
@@ -107,7 +111,7 @@ def anal_affine(a, b):
 
     function = function_to_string([a, b])
 
-    derivee = f'f\'(x) = {a}'
+    derivee = f'f\'(x) = {round(a, 3)}'
 
     if a!=0: x0 = round(-b/a, 3)
     else: x0 = None
@@ -154,9 +158,9 @@ def anal_2nd_degre(a, b, c):
     #Convertie la fonction en string
     function = function_to_string([a, b, c])
 
-    derivee = f'f\'(x) = {a*2}x'
-    if b>0: derivee += f'+{b}'
-    elif b<0: derivee += f'{b}'
+    derivee = f'f\'(x) = {round(a*2, 3)}x'
+    if b>0: derivee += f'+{round(b, 3)}'
+    elif b<0: derivee += f'{round(b, 3)}'
 
     Sx = -b/(2*a)
     S = (round(Sx, 3), round(f(Sx), 3))
