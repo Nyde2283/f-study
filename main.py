@@ -50,36 +50,23 @@ def def_number(msg, var):
     return response
 
 def selection_affine():
-    console.print()
-    console.print('f(x) = [i green blink]a[/i green blink]x+[i green]b[/i green]\n')
-    a = float(input('a = '))
-    if a.is_integer(): a = int(a)
+    msg = '\nf(x) = [i green blink]a[/i green blink]x+[i green]b[/i green]\n'
+    a = def_number(msg, 'a')
 
-    system('cls')
-    console.print()
-    console.print(f'f(x) = [green]{a}[/green]x+[i green blink]b[/i green blink]\n')
-    b = float(input('b = '))
-    if b.is_integer(): b = int(b)
+    msg = f'\nf(x) = [green]{round(a, 3)}[/green]x+[i green blink]b[/i green blink]\n'
+    b = def_number(msg, 'b')
 
     anal_affine(a, b)
 
 def selection_2nd_degre():
-    console.print()
-    console.print('f(x) = [i green blink]a[/i green blink]x²+[i green]b[/i green]x+[i green]c[/i green]\n')
-    a = float(input('a = '))
-    if a.is_integer(): a = int(a)
+    msg = '\nf(x) = [i green blink]a[/i green blink]x²+[i green]b[/i green]x+[i green]c[/i green]\n'
+    a = def_number(msg, 'a')
 
-    system('cls')
-    console.print()
-    console.print(f'f(x) = [green]{a}[/green]x²+[i green blink]b[/i green blink]x+[i green]c[/i green]\n')
-    b = float(input('b = '))
-    if b.is_integer(): b = int(b)
+    msg = f'\nf(x) = [green]{round(a, 3)}[/green]x²+[i green blink]b[/i green blink]x+[i green]c[/i green]\n'
+    b = def_number(msg, 'b')
 
-    system('cls')
-    console.print()
-    console.print(f'f(x) = [green]{a}[/green]x²+[green]{b}[/green]x+[i green blink]c[/i green blink]\n')
-    c = float(input('c = '))
-    if c.is_integer(): c = int(c)
+    msg = f'\nf(x) = [green]{round(a, 3)}[/green]x²+[green]{round(b, 3)}[/green]x+[i green]c[/i green]\n'
+    c = def_number(msg, 'c')
 
     if a!=0: anal_2nd_degre(a, b, c)
     else: anal_affine(b, c)
