@@ -35,37 +35,38 @@ def selection():
     elif select == '2': selection_2nd_degre()
     else: selection()
 
-def selection_affine():
-    console.print()
-    console.print('f(x) = [i green blink]a[/i green blink]x+[i green]b[/i green]\n')
-    a = float(input('a = '))
-    if a.is_integer(): a = int(a)
-
+def def_number(msg, var):
     system('cls')
-    console.print()
-    console.print(f'f(x) = [green]{a}[/green]x+[i green blink]b[/i green blink]\n')
-    b = float(input('b = '))
-    if b.is_integer(): b = int(b)
+    console.print(msg)
+    response = console.input(f'{var} = ')
+    try:
+        response = float(response)
+    except:
+        i = response.index('/')
+        numerateur = float(response[:i])
+        denominateur = float(response[i+1:])
+        response = numerateur/denominateur
+    if response.is_integer(): response = int(response)
+    return response
+
+def selection_affine():
+    msg = '\nf(x) = [i green blink]a[/i green blink]x+[i green]b[/i green]\n'
+    a = def_number(msg, 'a')
+
+    msg = f'\nf(x) = [green]{round(a, 3)}[/green]x+[i green blink]b[/i green blink]\n'
+    b = def_number(msg, 'b')
 
     anal_affine(a, b)
 
 def selection_2nd_degre():
-    console.print()
-    console.print('f(x) = [i green blink]a[/i green blink]x²+[i green]b[/i green]x+[i green]c[/i green]\n')
-    a = float(input('a = '))
-    if a.is_integer(): a = int(a)
+    msg = '\nf(x) = [i green blink]a[/i green blink]x²+[i green]b[/i green]x+[i green]c[/i green]\n'
+    a = def_number(msg, 'a')
 
-    system('cls')
-    console.print()
-    console.print(f'f(x) = [green]{a}[/green]x²+[i green blink]b[/i green blink]x+[i green]c[/i green]\n')
-    b = float(input('b = '))
-    if b.is_integer(): b = int(b)
+    msg = f'\nf(x) = [green]{round(a, 3)}[/green]x²+[i green blink]b[/i green blink]x+[i green]c[/i green]\n'
+    b = def_number(msg, 'b')
 
-    system('cls')
-    console.print()
-    console.print(f'f(x) = [green]{a}[/green]x²+[green]{b}[/green]x+[i green blink]c[/i green blink]\n')
-    c = float(input('c = '))
-    if c.is_integer(): c = int(c)
+    msg = f'\nf(x) = [green]{round(a, 3)}[/green]x²+[green]{round(b, 3)}[/green]x+[i green]c[/i green]\n'
+    c = def_number(msg, 'c')
 
     if a!=0: anal_2nd_degre(a, b, c)
     else: anal_affine(b, c)
@@ -73,6 +74,10 @@ def selection_2nd_degre():
 
 def function_to_string(facteurs: list):
     function = 'f(x) = '
+
+    for i in range(len(facteurs)):
+        facteurs[i] = round(facteurs[i], 3)
+
     match facteurs:
         case [a, b]:
                 if a==1: function += 'x'
@@ -106,7 +111,7 @@ def anal_affine(a, b):
 
     function = function_to_string([a, b])
 
-    derivee = f'f\'(x) = {a}'
+    derivee = f'f\'(x) = {round(a, 3)}'
 
     if a!=0: x0 = round(-b/a, 3)
     else: x0 = None
@@ -153,9 +158,9 @@ def anal_2nd_degre(a, b, c):
     #Convertie la fonction en string
     function = function_to_string([a, b, c])
 
-    derivee = f'f\'(x) = {a*2}x'
-    if b>0: derivee += f'+{b}'
-    elif b<0: derivee += f'{b}'
+    derivee = f'f\'(x) = {round(a*2, 3)}x'
+    if b>0: derivee += f'+{round(b, 3)}'
+    elif b<0: derivee += f'{round(b, 3)}'
 
     Sx = -b/(2*a)
     S = (round(Sx, 3), round(f(Sx), 3))
