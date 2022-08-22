@@ -7,7 +7,7 @@ assignees: Nyde2283
 
 ---
 
-**Décrivez le bug**
+**Description du bug**
 Une description claire et concise de ce que le bug fait.
 
 **Comment le reproduire**
