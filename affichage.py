@@ -24,7 +24,7 @@ def affichage(tableaux, function, derivee):
     console.print('\n')
     console.print('[#818488]Certaines valeurs peuvent être arrondies.[/#818488]')
     console.print('\n\n[#818488]Pour faire une demande de nouvelle fonctionnalité \nou pour signaler un bug : [/#818488]https://github.com/Nyde2283/f-study/issues   [#63666A](Ctrl+Click)[/#63666A]', highlight=False)
-    console.input('\n\n[black on white]Appuyer sur Entrée pour quitter...[/black on white]')
+    console.input('\n\n[black on white]Appuyer sur Entrée pour continuer...[/black on white]')
 
 
 
