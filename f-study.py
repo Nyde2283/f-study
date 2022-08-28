@@ -21,9 +21,51 @@ console = Console(highlight=False)
 
 
 
+def anal_affine(name, facteurs):
+    a, b = facteurs
+    
+    fonction = f'{name}(x) = '
+    if a==0:
+        if b==0: fonction += '0'
+        else: function += f'{b}'
+    else:
+        if a==1: fonction += 'x'
+        elif a==-1: fonction += '-x'
+        else: fonction += f'{a}x'
+
+        if b>0: fonction += f'+{b}'
+        elif b<0: fonction += f'{b}'
+        #sous entendu if b==0: pass
+
+    derivee = f'{name}\'(x) = {round(a, 3)}'
+
+    if a>0:
+        x0 = round(-b/a, 3)
+        if x0.is_integer(): x0 = int(x0)
+        signe = ['-∞', '-', f'{x0}', '+', '+∞']
+        varia = ['-∞', '+', '+∞']
+    elif a<0:
+        x0 = round(-b/a, 3)
+        if x0.is_integer(): x0 = int(x0)
+        signe = ['-∞', '+', f'{round(-b/a, 3)}', '-', '+∞']
+        varia = ['-∞', '-', '+∞']
+    else:
+        if b>0: signe = ['-∞', '+', '+∞']
+        elif b<0: signe = ['-∞', '-', '+∞']
+        else: signe = ['-∞', '0', '+∞']
+        varia = ['-∞', '0', '+∞']
+
+    return fonction, derivee, signe, varia
+
+
+
 class Fonction:
-    def __init__(self, name='f'):
+    def __init__(self, forme: str, facteurs: list, name='f'):
         self.name = name
+        match forme:
+            case 'affine':
+                self.fonction, self.derivee, self.signe, self.varia = anal_affine(name, facteurs)
+
 
     def display(self):
         t_signe = [
@@ -35,29 +77,29 @@ class Fonction:
             ['signe', f'{self.name}\'(x)'],
             ['varia', f'{self.name}(x)']
         ]
-        for i in range(len(self.f_signe)):
+        for i in range(len(self.signe)):
             if i%2==0:
-                if self.f_signe[i] in ('-∞', '+∞'):
-                    t_signe[0].append(self.f_signe[i])
+                if self.signe[i] in ('-∞', '+∞'):
+                    t_signe[0].append(self.signe[i])
                     t_signe[1].append('')
                 else:
-                    t_signe[0].append(self.f_signe[i])
+                    t_signe[0].append(self.signe[i])
                     t_signe[1].append('0')
             elif i%2==1:
                 t_signe[0].append('')
-                t_signe[1].append(self.f_signe[i])
-        for i in range(len(self.f_varia)):
+                t_signe[1].append(self.signe[i])
+        for i in range(len(self.varia)):
             if i%2==0:
-                if self.f_varia[i] in ('-∞', '+∞'):
-                    t_varia[0].append(self.f_varia[i])
+                if self.varia[i] in ('-∞', '+∞'):
+                    t_varia[0].append(self.varia[i])
                     t_varia[1].append('')
                     t_varia[2].append('')
                 else:
-                    t_varia[0].append(self.f_varia[i]["x"])
+                    t_varia[0].append(self.varia[i]["x"])
                     t_varia[1].append('0')
-                    t_varia[2].append(self.f_varia[i]["y"])
+                    t_varia[2].append(self.varia[i]["y"])
             else:
-                match self.f_varia[i]:
+                match self.varia[i]:
                     case '+':
                         varia = ('+', '↗')
                     case '-':
