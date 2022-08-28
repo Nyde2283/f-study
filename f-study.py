@@ -22,7 +22,7 @@ console = Console(highlight=False)
 
 
 class Fonction:
-    def __init__(self, name):
+    def __init__(self, name='f'):
         self.name = name
 
     def display(self):
