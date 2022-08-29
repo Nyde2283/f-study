@@ -37,7 +37,7 @@ def selection(options: list[dict]):
             pass
     return select-1
 
-def def_number(msg, var):
+def get_number(msg, var):
     response = None
     while response==None:
         system('cls')
@@ -56,26 +56,26 @@ def def_number(msg, var):
     if response.is_integer(): response = int(response)
     return response
 
-def selection_affine():
+def get_facteurs_affine():
     msg = '\nf(x) = [i green blink]a[/i green blink]x+[i green]b[/i green]\n'
-    a = def_number(msg, 'a')
+    a = get_number(msg, 'a')
 
     msg = f'\nf(x) = [green]{round(a, 3)}[/green]x+[i green blink]b[/i green blink]\n'
-    b = def_number(msg, 'b')
+    b = get_number(msg, 'b')
 
     return [a, b]
 
-def selection_second_degre():
+def get_facteurs_second_degre():
     a = 0
     msg = '\nf(x) = [i green blink]a[/i green blink]x²+[i green]b[/i green]x+[i green]c[/i green]\n'
     while a==0:
-        a = def_number(msg, 'a')
+        a = get_number(msg, 'a')
 
     msg = f'\nf(x) = [green]{round(a, 3)}[/green]x²+[i green blink]b[/i green blink]x+[i green]c[/i green]\n'
-    b = def_number(msg, 'b')
+    b = get_number(msg, 'b')
 
     msg = f'\nf(x) = [green]{round(a, 3)}[/green]x²+[green]{round(b, 3)}[/green]x+[i green]c[/i green]\n'
-    c = def_number(msg, 'c')
+    c = get_number(msg, 'c')
 
     return [a, b, c]
 
@@ -249,19 +249,19 @@ options = [
     {
         'forme': 'affine',
         'content': 'f(x) = [i green]a[/i green]x+[i green]b[/i green]',
-        'fonction_selection': selection_affine
+        'fonction_get_facteurs': get_facteurs_affine
     },
     {
         'forme': 'second_degre',
         'content': 'f(x) = [i green]a[/i green]x²+[i green]b[/i green]x+[i green]c[/i green]',
-        'fonction_selection': selection_second_degre
+        'fonction_get_facteurs': get_facteurs_second_degre
     }
 ]
 
 while True:
     select_i = selection(options)
     select = options[select_i]
-    facteurs = select["fonction_selection"]()
+    facteurs = select["fonction_get_facteurs"]()
     f = Fonction(select["forme"], facteurs)
 
     system('cls')
