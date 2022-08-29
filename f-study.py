@@ -259,18 +259,16 @@ options = [
 ]
 
 while True:
-    select_i = selection(options)
-    select = options[select_i]
-    facteurs = select["fonction_get_facteurs"]()
-    f = Fonction(select["forme"], facteurs)
+    try:
+        select_i = selection(options)
+        select = options[select_i]
+        facteurs = select["fonction_get_facteurs"]()
+        f = Fonction(select["forme"], facteurs)
 
-    system('cls')
-    console.print('\n')
-    f.display()
-    console.print('\n\n[#818488]Pour faire une demande de nouvelle fonctionnalité \nou pour signaler un bug : [/#818488]https://github.com/Nyde2283/f-study/issues   [#63666A](Ctrl+Click)[/#63666A]', highlight=False)
-    console.input('\n\n[black on white]Appuyer sur Entrée pour continuer...[/black on white]')
-
-
-
-
-
+        system('cls')
+        console.print('\n')
+        f.display()
+        console.print('\n\n[#818488]Pour faire une demande de nouvelle fonctionnalité \nou pour signaler un bug : [/#818488]https://github.com/Nyde2283/f-study/issues   [#63666A](Ctrl+Click)[/#63666A]', highlight=False)
+        console.input('\n\n[black on white]Appuyer sur Entrée pour continuer...[/black on white]')
+    except:
+        pass
