@@ -57,6 +57,60 @@ def anal_affine(name, facteurs):
 
     return fonction, derivee, signe, varia
 
+def anal_second_degre(name, facteurs):
+    a, b, c = facteurs
+
+    fonction = f'{name}(x) = '
+    if a==1: fonction += 'x²'
+    elif a==-1: fonction += '-x²'
+    else: fonction += f'{a}x²'
+
+    if b==1: fonction += '+x'
+    elif b==-1: fonction += '-x'
+    elif b>0: fonction += f'+{b}x'
+    elif b<0: fonction += f'{b}x'
+    #sous entendu if b==0: pass
+    
+    if c>0: fonction += f'+{c}'
+    elif c<0: fonction += f'{c}'
+    #sous entendu if c==0: pass
+
+    derivee = f'{name}\'(x) = {round(a*2, 3)}x'
+    if b>0: derivee += f'+{round(b, 3)}'
+    elif b<0: derivee += f'{round(b, 3)}'
+
+    f = lambda x: a*x**2+b*x+c
+    Sx = -b/(2*a)
+    S = {'x': f'{round(Sx, 3)}', 'y': f'{round(f(Sx), 3)}'}
+
+    delta = b**2-4*a*c
+    if delta>0:
+        x1 = round((-b-sqrt(delta))/(2*a), 3)
+        x2 = round((-b+sqrt(delta))/(2*a), 3)
+        if x1>x2:
+            x1, x2 = x2, x1
+        if a>0:
+            signe = ['-∞', '+', f'{x1}', '-', f'{x2}', '+', '+∞']
+        else:
+            signe = ['-∞', '-', f'{x1}', '+', f'{x2}', '-', '+∞']
+    elif delta==0:
+        x0 = round(-b/(2*a), 3)
+        if a>0:
+            signe = ['-∞', '+', f'{x0}', '+', '+∞']
+        else:
+            signe = ['-∞', '-', f'{x0}', '-' '+∞']
+    else:
+        if a>0:
+            signe = ['-∞', '+', '+∞']
+        else:
+            signe = ['-∞', '-', '+∞']
+
+    if a>0:
+        varia = ['-∞', '-', S, '+', '+∞']
+    else:
+        varia = ['-∞', '+', S, '-', '+∞']
+    
+    return fonction, derivee, signe, varia
 
 
 class Fonction:
@@ -65,7 +119,8 @@ class Fonction:
         match forme:
             case 'affine':
                 self.fonction, self.derivee, self.signe, self.varia = anal_affine(name, facteurs)
-
+            case 'second_degre':
+                self.fonction, self.derivee, self.signe, self.varia = anal_second_degre(name, facteurs)
 
     def display(self):
         t_signe = [
