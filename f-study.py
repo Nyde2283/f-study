@@ -105,7 +105,7 @@ def anal_affine(name, facteurs):
     elif a<0:
         x0 = round(-b/a, 3)
         if x0.is_integer(): x0 = int(x0)
-        signe = ['-∞', '+', f'{round(-b/a, 3)}', '-', '+∞']
+        signe = ['-∞', '+', f'{x0}', '-', '+∞']
         varia = ['-∞', '-', '+∞']
     else:
         if b>0: signe = ['-∞', '+', '+∞']
