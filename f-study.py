@@ -27,7 +27,7 @@ def anal_affine(name, facteurs):
     fonction = f'{name}(x) = '
     if a==0:
         if b==0: fonction += '0'
-        else: function += f'{b}'
+        else: fonction += f'{b}'
     else:
         if a==1: fonction += 'x'
         elif a==-1: fonction += '-x'
