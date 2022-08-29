@@ -133,18 +133,25 @@ def anal_second_degre(name, facteurs):
     elif c<0: fonction += f'{c}'
     #sous entendu if c==0: pass
 
-    derivee = f'{name}\'(x) = {round(a*2, 3)}x'
+    temp = round(a*2, 3)
+    if type(temp)==float and temp.is_integer(): temp = int(temp)
+    derivee = f'{name}\'(x) = {temp}x'
     if b>0: derivee += f'+{round(b, 3)}'
     elif b<0: derivee += f'{round(b, 3)}'
 
     f = lambda x: a*x**2+b*x+c
     Sx = -b/(2*a)
-    S = {'x': f'{round(Sx, 3)}', 'y': f'{round(f(Sx), 3)}'}
+    Sy = f(Sx)
+    if Sx.is_integer(): Sx = int(Sx)
+    if Sy.is_integer(): Sy = int(Sy)
+    S = {'x': f'{round(Sx, 3)}', 'y': f'{round(Sy, 3)}'}
 
     delta = b**2-4*a*c
     if delta>0:
         x1 = round((-b-sqrt(delta))/(2*a), 3)
         x2 = round((-b+sqrt(delta))/(2*a), 3)
+        if x1.is_integer(): x1 = int(x1)
+        if x2.is_integer(): x2 = int(x2)
         if x1>x2:
             x1, x2 = x2, x1
         if a>0:
@@ -153,6 +160,7 @@ def anal_second_degre(name, facteurs):
             signe = ['-∞', '-', f'{x1}', '+', f'{x2}', '-', '+∞']
     elif delta==0:
         x0 = round(-b/(2*a), 3)
+        if x0.is_integer(): x0 = int(x0)
         if a>0:
             signe = ['-∞', '+', f'{x0}', '+', '+∞']
         else:
