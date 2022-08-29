@@ -21,6 +21,64 @@ console = Console(highlight=False)
 
 
 
+def selection(options: list[dict]):
+    select=None
+    while type(select)!=int:
+        system('cls')
+        console.print('\n\nSélectionnez la forme de la fonction :\n')
+        for i in range(len(options)):
+            console.print(f'[#61d6d6]{i+1}[/#61d6d6]: {options[i]["content"]}')
+        select = console.input('\n\nFonction du type : ')
+        try:
+            select = int(select)
+            if select not in range(1, len(options)+1):
+                select = None
+        except:
+            pass
+    return select-1
+
+def def_number(msg, var):
+    response = None
+    while response==None:
+        system('cls')
+        console.print(msg)
+        response = console.input(f'{var} = ')
+        try:
+            response = float(response)
+        except:
+            try:
+                i = response.index('/')
+                numerateur = float(response[:i])
+                denominateur = float(response[i+1:])
+                response = numerateur/denominateur
+            except:
+                response = None
+    if response.is_integer(): response = int(response)
+    return response
+
+def selection_affine():
+    msg = '\nf(x) = [i green blink]a[/i green blink]x+[i green]b[/i green]\n'
+    a = def_number(msg, 'a')
+
+    msg = f'\nf(x) = [green]{round(a, 3)}[/green]x+[i green blink]b[/i green blink]\n'
+    b = def_number(msg, 'b')
+
+    return [a, b]
+
+def selection_second_degre():
+    a = 0
+    msg = '\nf(x) = [i green blink]a[/i green blink]x²+[i green]b[/i green]x+[i green]c[/i green]\n'
+    while a==0:
+        a = def_number(msg, 'a')
+
+    msg = f'\nf(x) = [green]{round(a, 3)}[/green]x²+[i green blink]b[/i green blink]x+[i green]c[/i green]\n'
+    b = def_number(msg, 'b')
+
+    msg = f'\nf(x) = [green]{round(a, 3)}[/green]x²+[green]{round(b, 3)}[/green]x+[i green]c[/i green]\n'
+    c = def_number(msg, 'c')
+
+    return [a, b, c]
+
 def anal_affine(name, facteurs):
     a, b = facteurs
     
@@ -174,8 +232,36 @@ class Fonction:
             console.print(tableau) # affichage de la table
         console.print('\n')
         console.print(self.fonction, self.derivee, sep='\n')
-        console.print('\n')
-        console.print('[#818488]Certaines valeurs peuvent être arrondies.[/#818488]')
+        console.print('\n\n[#818488]Certaines valeurs peuvent être arrondies.[/#818488]')
+
+
+
+
+options = [
+    {
+        'forme': 'affine',
+        'content': 'f(x) = [i green]a[/i green]x+[i green]b[/i green]',
+        'fonction_selection': selection_affine
+    },
+    {
+        'forme': 'second_degre',
+        'content': 'f(x) = [i green]a[/i green]x²+[i green]b[/i green]x+[i green]c[/i green]',
+        'fonction_selection': selection_second_degre
+    }
+]
+
+while True:
+    select_i = selection(options)
+    select = options[select_i]
+    facteurs = select["fonction_selection"]()
+    f = Fonction(select["forme"], facteurs)
+
+    system('cls')
+    console.print('\n')
+    f.display()
+    console.print('\n\n[#818488]Pour faire une demande de nouvelle fonctionnalité \nou pour signaler un bug : [/#818488]https://github.com/Nyde2283/f-study/issues   [#63666A](Ctrl+Click)[/#63666A]', highlight=False)
+    console.input('\n\n[black on white]Appuyer sur Entrée pour continuer...[/black on white]')
+
 
 
 
