@@ -1,6 +1,6 @@
 error_list = {
-    'test': 'Rien à craindre, cette erreur est un test.',
-    'bad Python version': 'f-study nécessite Python 3.10 ou une version spérieure',
+    'Test': 'Rien à craindre, cette erreur est un test.',
+    'Bad Python version': 'f-study nécessite Python 3.10 ou une version spérieure',
     'Rich not found': """La bibliothèque Rich n'est pas installée sur votre ordinateur.
     Elle est indispensable pour afficher les tableaux.
     Pour plus d'informations consultez la page \033]8;;https://pypi.org/project/rich/\033\\PyPi\033]8;;\033\\ ou la page \033]8;;https://github.com/Textualize/rich\033\\GitHube\033]8;;\033\\ de Rich.

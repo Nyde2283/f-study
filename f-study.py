@@ -12,7 +12,7 @@ prog_info = {
 }
 def_debug_info(prog_info)
 
-if version_info<(3, 10): exit_on_error('bad Python version')
+if version_info<(3, 10): exit_on_error('Bad Python version')
 
 try:
     from rich.console import Console
