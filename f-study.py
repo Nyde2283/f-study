@@ -2,7 +2,7 @@ from sys import version_info
 from os import system
 from platform import system as platform
 from math import sqrt
-from error import def_debug_info, exit_on_error
+from error import def_debug_info, display_error, exit_on_error
 
 prog_info = {
     'version': 'v0.1.1-dev',
@@ -277,4 +277,5 @@ while True:
         console.print('\n\n[#818488]Pour faire une demande de nouvelle fonctionnalité \nou pour signaler un bug : [/#818488]https://github.com/Nyde2283/f-study/issues   [#63666A](Ctrl+Click)[/#63666A]', highlight=False)
         console.input('\n\n[black on white]Appuyer sur Entrée pour continuer...[/black on white]')
     except:
+        display_error('Something went wrong')
         pass
