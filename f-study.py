@@ -1,19 +1,25 @@
 from sys import version_info
-assert version_info >= (3, 10), 'f-study nécessite Python 3.10 ou supérieur'
+from os import system
+from platform import system as platform
+from math import sqrt
+from error import def_debug_info, display_error, exit_on_error
+
+prog_info = {
+    'version': 'v0.1.1-dev',
+    'release_link': 'https://github.com/Nyde2283/f-study/releases/tag/v0.1.0',
+    'py_version': f'{version_info.major}.{version_info.minor}.{version_info.micro}',
+    'platforme': platform()
+}
+def_debug_info(prog_info)
+
+if version_info<(3, 10): exit_on_error('Bad Python version')
 
 try:
     from rich.console import Console
 except:
-    print('\nLa bibliothèque Rich n\'est pas installé sur votre ordinateur. Elle est indispensable pour afficher les tableaux.')
-    print('Pour plus d\'informations consultez la page PyPi ( https://pypi.org/project/rich/ ) \nou la page GitHub ( https://github.com/Textualize/rich ) du projet.')
-    print('\nPour installer Rich :')
-    print('- Ouvrez un terminal en administrateur')
-    print('- Tapez la commande: python -m pip install rich')
-    input('\n Appuyez sur Enter pour quitter...')
+    exit_on_error('Rich not found')
 from rich.table import Table
 from rich import box
-from math import sqrt
-from os import system
 
 
 console = Console(highlight=False)
@@ -271,4 +277,5 @@ while True:
         console.print('\n\n[#818488]Pour faire une demande de nouvelle fonctionnalité \nou pour signaler un bug : [/#818488]https://github.com/Nyde2283/f-study/issues   [#63666A](Ctrl+Click)[/#63666A]', highlight=False)
         console.input('\n\n[black on white]Appuyer sur Entrée pour continuer...[/black on white]')
     except:
+        display_error('Something went wrong')
         pass
