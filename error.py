@@ -18,13 +18,23 @@ error_list = {
         'msg': 'f-study a cessé de fonctionner de manière inatendue, il va tenter de redémarrer.',
         'to do': None
     }
-}
+} #Format : error_list = dict{error_code: dict{msg: str, to do: str}, ...}
 
 def def_debug_info(prog_info):
+    """Définie les information de débogage
+
+    Args:
+        prog_info (dict): dictionnaire avec les clefs 'version', 'py_version' et 'platforme'
+    """
     global debug_info
     debug_info = prog_info
 
 def exit_on_error(error_code):
+    """Affiche une erreur puis ferme le programme
+
+    Args:
+        error_code (str): code correspondant à une des clefs de error_list
+    """
     print(f"""\n\nCode d'erreur :
     {error_code}
 
@@ -43,6 +53,11 @@ message :
     exit()
 
 def display_error(error_code):
+    """Affiche une erreur puis reprend le programme
+
+    Args:
+        error_code (str): code correspondant à une des clefs de error_list
+    """
     print(f"""\n\nCode d'erreur :
     {error_code}
 
