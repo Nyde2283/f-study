@@ -55,7 +55,7 @@ class Selecteur:
                     select = None
             except:
                 pass
-        return select-1
+        options[i-1]["fonction associee"]()
 
 def get_number(msg, var):
     response = None
@@ -269,12 +269,12 @@ options = [
     {
         'forme': 'affine',
         'content': 'f(x) = [i green]a[/i green]x+[i green]b[/i green]',
-        'fonction_get_facteurs': get_facteurs_affine
+        'fonction associee': get_facteurs_affine
     },
     {
         'forme': 'second_degre',
         'content': 'f(x) = [i green]a[/i green]x²+[i green]b[/i green]x+[i green]c[/i green]',
-        'fonction_get_facteurs': get_facteurs_second_degre
+        'fonction associee': get_facteurs_second_degre
     }
 ]
 
