@@ -36,7 +36,7 @@ class Selecteur:
     def prompt(self):
         select = None
         options_list = '[1'
-        for i in range(1, len(options)):
+        for i in range(1, len(self.options)):
             options_list += f'/{i+1}'
         options_list += ']'
 
@@ -46,16 +46,16 @@ class Selecteur:
                 console.print(f'\n\n{self.prompt_title}\n')
             else:
                 console.print('\n\n')
-            for i in range(len(options)):
-                console.print(f'[#61d6d6][{i+1}][/#61d6d6] : {options[i]["content"]}')
+            for i in range(len(self.options)):
+                console.print(f'[#61d6d6][{i+1}][/#61d6d6] : {self.options[i]["content"]}')
             select = console.input(f'\n\n{self.prompt_msg} [#61d6d6]{options_list}[/#61d6d6] : ')
             try:
                 select = int(select)
-                if select not in range(1, len(options)+1):
+                if select not in range(1, len(self.options)+1):
                     select = None
             except:
                 pass
-        options[i-1]["fonction associee"]()
+        self.options[i-1]["fonction associee"]()
 
 def get_number(msg, var):
     response = None
