@@ -268,7 +268,6 @@ class Selecteur:
 
 
 
-
 options_selecteur_1er = [
     {
         'forme': 'affine',
@@ -290,6 +289,20 @@ options_main_menu = [
     }
 ]
 main_menu = Selecteur('Choisissez une action', options_main_menu)
+
+
+
+
+system('cls')
+# Si vous voulez en apprendre plus sur la syntaxe utilisée pour l'hyperlink voici un peu de documentation :
+# https://stackoverflow.com/a/71309268/19882226
+# https://gist.github.com/egmontkob/eb114294efbcd5adb1944c9f3cb5feda
+# https://en.wikipedia.org/wiki/ANSI_escape_code#OSC
+print(f"""
+Bienvenu sur \033]8;;{prog_info["release_link"]}\033\\f-study {prog_info["version"]}\033]8;;\033\\
+
+Pour signaler un bug ou suggérer une nouvelle fonctionnalité créez une issue \033]8;;https://github.com/Nyde2283/f-study/issues/new/choose\033\\ici\033]8;;\033\\.""")
+input('\nAppuyez sur Enter pour continuer...')
 
 while True:
     try:
