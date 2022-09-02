@@ -260,12 +260,12 @@ class Selecteur:
                 console.print(f'[#61d6d6][{i+1}][/#61d6d6] : {self.options[i]["content"]}')
             select = console.input(f'\n\n{self.prompt_msg} [#61d6d6]{options_list}[/#61d6d6] : ')
             try:
-                select = int(select)
-                if select not in range(1, len(self.options)+1):
+                select = int(select) - 1
+                if select not in range(len(self.options)+1):
                     select = None
             except:
                 pass
-        return_value = self.options[i]["fonction associee"]()
+        return_value = self.options[select]["fonction associee"]()
 
         return return_value
 
