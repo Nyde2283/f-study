@@ -289,7 +289,7 @@ options_main_menu = [
         'fonction associee': selecteur_1er.prompt
     }
 ]
-main_menu = Selecteur('Choisissez une action', options_main_menu, prompt_title='Bienvenu sur f-study')
+main_menu = Selecteur('Choisissez une action', options_main_menu)
 
 while True:
     try:
