@@ -46,6 +46,10 @@ def get_number(msg, var):
     if response.is_integer(): response = int(response)
     return response
 
+def prog_exit():
+    global execute
+    execute = False
+
 def def_affine():
     msg = '\nf(x) = [i green blink]a[/i green blink]x+[i green]b[/i green]\n'
     a = get_number(msg, 'a')
@@ -286,9 +290,15 @@ options_main_menu = [
     {
         'content': 'Ajouter une fonction à étudier',
         'fonction associee': selecteur_1er.prompt
+    },
+    {
+        'content': 'Quitter',
+        'fonction associee': prog_exit
     }
 ]
 main_menu = Selecteur('Choisissez une action', options_main_menu)
+
+execute = True
 
 
 
@@ -304,14 +314,15 @@ Bienvenu sur \033]8;;{prog_info["release_link"]}\033\\f-study {prog_info["versio
 Pour signaler un bug ou suggérer une nouvelle fonctionnalité créez une issue \033]8;;https://github.com/Nyde2283/f-study/issues/new/choose\033\\ici\033]8;;\033\\.""")
 input('\nAppuyez sur Enter pour continuer...')
 
-while True:
+while execute:
     try:
         main_menu.prompt()
         system('cls')
-        console.print('\n')
-        Fonction.fonction.display()
-        console.print('\n\n[#818488]Pour faire une demande de nouvelle fonctionnalité \nou pour signaler un bug : [/#818488]https://github.com/Nyde2283/f-study/issues   [#63666A](Ctrl+Click)[/#63666A]', highlight=False)
-        console.input('\n\n[black on white]Appuyer sur Entrée pour continuer...[/black on white]')
+        if execute:
+            console.print('\n')
+            Fonction.fonction.display()
+            console.print('\n\n[#818488]Pour faire une demande de nouvelle fonctionnalité \nou pour signaler un bug : [/#818488]https://github.com/Nyde2283/f-study/issues   [#63666A](Ctrl+Click)[/#63666A]', highlight=False)
+            console.input('\n\n[black on white]Appuyer sur Entrée pour continuer...[/black on white]')
     except:
         display_error('Something went wrong')
         pass
