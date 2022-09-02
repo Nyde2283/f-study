@@ -55,7 +55,9 @@ class Selecteur:
                     select = None
             except:
                 pass
-        self.options[i-1]["fonction associee"]()
+        return_value = self.options[i]["fonction associee"]()
+
+        return return_value
 
 def get_number(msg, var):
     response = None
@@ -76,16 +78,16 @@ def get_number(msg, var):
     if response.is_integer(): response = int(response)
     return response
 
-def get_facteurs_affine():
+def def_affine():
     msg = '\nf(x) = [i green blink]a[/i green blink]x+[i green]b[/i green]\n'
     a = get_number(msg, 'a')
 
     msg = f'\nf(x) = [green]{round(a, 3)}[/green]x+[i green blink]b[/i green blink]\n'
     b = get_number(msg, 'b')
 
-    return [a, b]
+    f = Fonction('affine', [a, b])
 
-def get_facteurs_second_degre():
+def def_second_degre():
     a = 0
     msg = '\nf(x) = [i green blink]a[/i green blink]x²+[i green]b[/i green]x+[i green]c[/i green]\n'
     while a==0:
@@ -97,7 +99,7 @@ def get_facteurs_second_degre():
     msg = f'\nf(x) = [green]{round(a, 3)}[/green]x²+[green]{round(b, 3)}[/green]x+[i green]c[/i green]\n'
     c = get_number(msg, 'c')
 
-    return [a, b, c]
+    f = Fonction('second_degre', [a, b, c])
 
 def anal_affine(name, facteurs):
     a, b = facteurs
@@ -207,6 +209,7 @@ class Fonction:
                 self.fonction, self.derivee, self.signe, self.varia = anal_affine(name, facteurs)
             case 'second_degre':
                 self.fonction, self.derivee, self.signe, self.varia = anal_second_degre(name, facteurs)
+        Fonction.fonction = self
 
     def display(self):
         t_signe = [
@@ -265,29 +268,34 @@ class Fonction:
 
 
 
-options = [
+options_selecteur_1er = [
     {
         'forme': 'affine',
         'content': 'f(x) = [i green]a[/i green]x+[i green]b[/i green]',
-        'fonction associee': get_facteurs_affine
+        'fonction associee': def_affine
     },
     {
         'forme': 'second_degre',
         'content': 'f(x) = [i green]a[/i green]x²+[i green]b[/i green]x+[i green]c[/i green]',
-        'fonction associee': get_facteurs_second_degre
+        'fonction associee': def_second_degre
     }
 ]
+selecteur_1er = Selecteur('Fonction du type', options_selecteur_1er, 'Sélectionnez la forme de la fonction')
+
+options_main_menu = [
+    {
+        'content': 'Ajouter une fonction à étudier',
+        'fonction associee': selecteur_1er.prompt
+    }
+]
+main_menu = Selecteur('Choisissez une action', options_main_menu, prompt_title='Bienvenu sur f-study')
 
 while True:
     try:
-        select_i = selection(options)
-        select = options[select_i]
-        facteurs = select["fonction_get_facteurs"]()
-        f = Fonction(select["forme"], facteurs)
-
+        main_menu.prompt()
         system('cls')
         console.print('\n')
-        f.display()
+        Fonction.fonction.display()
         console.print('\n\n[#818488]Pour faire une demande de nouvelle fonctionnalité \nou pour signaler un bug : [/#818488]https://github.com/Nyde2283/f-study/issues   [#63666A](Ctrl+Click)[/#63666A]', highlight=False)
         console.input('\n\n[black on white]Appuyer sur Entrée pour continuer...[/black on white]')
     except:
