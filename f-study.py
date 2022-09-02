@@ -27,38 +27,6 @@ console = Console(highlight=False)
 
 
 
-class Selecteur:
-    def __init__(self, prompt_msg, options, prompt_title=None):
-        self.prompt_title = prompt_title
-        self.options = options
-        self.prompt_msg = prompt_msg
-
-    def prompt(self):
-        select = None
-        options_list = '[1'
-        for i in range(1, len(self.options)):
-            options_list += f'/{i+1}'
-        options_list += ']'
-
-        while type(select)!=int:
-            system('cls')
-            if self.prompt_title != None:
-                console.print(f'\n\n{self.prompt_title}\n')
-            else:
-                console.print('\n\n')
-            for i in range(len(self.options)):
-                console.print(f'[#61d6d6][{i+1}][/#61d6d6] : {self.options[i]["content"]}')
-            select = console.input(f'\n\n{self.prompt_msg} [#61d6d6]{options_list}[/#61d6d6] : ')
-            try:
-                select = int(select)
-                if select not in range(1, len(self.options)+1):
-                    select = None
-            except:
-                pass
-        return_value = self.options[i]["fonction associee"]()
-
-        return return_value
-
 def get_number(msg, var):
     response = None
     while response==None:
@@ -264,6 +232,39 @@ class Fonction:
         console.print('\n')
         console.print(self.fonction, self.derivee, sep='\n')
         console.print('\n\n[#818488]Certaines valeurs peuvent être arrondies.[/#818488]')
+
+class Selecteur:
+    def __init__(self, prompt_msg, options, prompt_title=None):
+        self.prompt_title = prompt_title
+        self.options = options
+        self.prompt_msg = prompt_msg
+
+    def prompt(self):
+        select = None
+        options_list = '[1'
+        for i in range(1, len(self.options)):
+            options_list += f'/{i+1}'
+        options_list += ']'
+
+        while type(select)!=int:
+            system('cls')
+            if self.prompt_title != None:
+                console.print(f'\n\n{self.prompt_title}\n')
+            else:
+                console.print('\n\n')
+            for i in range(len(self.options)):
+                console.print(f'[#61d6d6][{i+1}][/#61d6d6] : {self.options[i]["content"]}')
+            select = console.input(f'\n\n{self.prompt_msg} [#61d6d6]{options_list}[/#61d6d6] : ')
+            try:
+                select = int(select)
+                if select not in range(1, len(self.options)+1):
+                    select = None
+            except:
+                pass
+        return_value = self.options[i]["fonction associee"]()
+
+        return return_value
+
 
 
 
