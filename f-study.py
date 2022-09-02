@@ -27,21 +27,35 @@ console = Console(highlight=False)
 
 
 
-def selection(options: list[dict]):
-    select=None
-    while type(select)!=int:
-        system('cls')
-        console.print('\n\nSélectionnez la forme de la fonction :\n')
-        for i in range(len(options)):
-            console.print(f'[#61d6d6]{i+1}[/#61d6d6]: {options[i]["content"]}')
-        select = console.input('\n\nFonction du type : ')
-        try:
-            select = int(select)
-            if select not in range(1, len(options)+1):
-                select = None
-        except:
-            pass
-    return select-1
+class Selecteur:
+    def __init__(self, prompt_msg, options, prompt_title=None):
+        self.prompt_title = prompt_title
+        self.options = options
+        self.prompt_msg = prompt_msg
+
+    def prompt(self):
+        select = None
+        options_list = '[1'
+        for i in range(1, len(options)):
+            options_list += f'/{i+1}'
+        options_list += ']'
+
+        while type(select)!=int:
+            system('cls')
+            if self.prompt_title != None:
+                console.print(f'\n\n{self.prompt_title}\n')
+            else:
+                console.print('\n\n')
+            for i in range(len(options)):
+                console.print(f'[#61d6d6][{i+1}][/#61d6d6] : {options[i]["content"]}')
+            select = console.input(f'\n\n{self.prompt_msg} [#61d6d6]{options_list}[/#61d6d6] : ')
+            try:
+                select = int(select)
+                if select not in range(1, len(options)+1):
+                    select = None
+            except:
+                pass
+        return select-1
 
 def get_number(msg, var):
     response = None
