@@ -273,9 +273,7 @@ class Selecteur:
                     select = None #permet de rester dans la boucle while
             except:
                 pass
-        return_value = self.options[select]["fonction associee"]() #exécute la fonction associée à l'option et récupère son return (même si elle ne return pas)
-
-        return return_value
+        self.options[select]["fonction associee"]() #exécute la fonction associée à l'option et récupère son return (même si elle ne return pas)
 
 
 
