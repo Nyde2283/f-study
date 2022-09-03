@@ -27,22 +27,6 @@ console = Console(highlight=False)
 
 
 
-def selection(options: list[dict]):
-    select=None
-    while type(select)!=int:
-        system('cls')
-        console.print('\n\nSélectionnez la forme de la fonction :\n')
-        for i in range(len(options)):
-            console.print(f'[#61d6d6]{i+1}[/#61d6d6]: {options[i]["content"]}')
-        select = console.input('\n\nFonction du type : ')
-        try:
-            select = int(select)
-            if select not in range(1, len(options)+1):
-                select = None
-        except:
-            pass
-    return select-1
-
 def get_number(msg, var):
     response = None
     while response==None:
@@ -62,16 +46,21 @@ def get_number(msg, var):
     if response.is_integer(): response = int(response)
     return response
 
-def get_facteurs_affine():
+def prog_exit():
+    """Change la valeur d'exécution sur Flase"""
+    global execute
+    execute = False
+
+def def_affine():
     msg = '\nf(x) = [i green blink]a[/i green blink]x+[i green]b[/i green]\n'
     a = get_number(msg, 'a')
 
     msg = f'\nf(x) = [green]{round(a, 3)}[/green]x+[i green blink]b[/i green blink]\n'
     b = get_number(msg, 'b')
 
-    return [a, b]
+    f = Fonction('affine', [a, b])
 
-def get_facteurs_second_degre():
+def def_second_degre():
     a = 0
     msg = '\nf(x) = [i green blink]a[/i green blink]x²+[i green]b[/i green]x+[i green]c[/i green]\n'
     while a==0:
@@ -83,7 +72,7 @@ def get_facteurs_second_degre():
     msg = f'\nf(x) = [green]{round(a, 3)}[/green]x²+[green]{round(b, 3)}[/green]x+[i green]c[/i green]\n'
     c = get_number(msg, 'c')
 
-    return [a, b, c]
+    f = Fonction('second_degre', [a, b, c])
 
 def anal_affine(name, facteurs):
     a, b = facteurs
@@ -193,6 +182,7 @@ class Fonction:
                 self.fonction, self.derivee, self.signe, self.varia = anal_affine(name, facteurs)
             case 'second_degre':
                 self.fonction, self.derivee, self.signe, self.varia = anal_second_degre(name, facteurs)
+        Fonction.fonction = self
 
     def display(self):
         t_signe = [
@@ -248,34 +238,91 @@ class Fonction:
         console.print(self.fonction, self.derivee, sep='\n')
         console.print('\n\n[#818488]Certaines valeurs peuvent être arrondies.[/#818488]')
 
+class Selecteur:
+    def __init__(self, prompt_msg: str, options: list[dict], prompt_title: str = None):
+        """Créer un menu de sélection
+
+        Args:
+            prompt_msg (str): instruction donnée à la fin du menu (après le options)
+            options (list[dict]): liste des options à afficher
+            prompt_title (str, optional): message à afficher au début du menu (avant les options). Defaults to None.
+        """
+        self.prompt_title = prompt_title
+        self.options = options
+        self.prompt_msg = prompt_msg
+
+    def prompt(self):
+        select = None
+        options_list = '[1' #liste des valeurs fonctionnelles pour l'input
+        for i in range(1, len(self.options)):
+            options_list += f'/{i+1}'
+        options_list += ']'
+
+        while type(select)!=int:
+            system('cls')
+            if self.prompt_title != None:
+                console.print(f'\n\n{self.prompt_title}\n')
+            else:
+                console.print('\n\n')
+            for i in range(len(self.options)):
+                console.print(f'[#61d6d6][{i+1}][/#61d6d6] : {self.options[i]["content"]}')
+            select = console.input(f'\n\n{self.prompt_msg} [#61d6d6]{options_list}[/#61d6d6] : ')
+            try:
+                select = int(select) - 1 #vérifie que l'input est un nombre (entier)
+                if select not in range(len(self.options)+1): #vérifie que l'input ne fait pas parti des options
+                    select = None #permet de rester dans la boucle while
+            except:
+                pass
+        self.options[select]["fonction associee"]() #exécute la fonction associée à l'option et récupère son return (même si elle ne return pas)
 
 
 
-options = [
+
+options_selecteur_1er = [
     {
         'forme': 'affine',
         'content': 'f(x) = [i green]a[/i green]x+[i green]b[/i green]',
-        'fonction_get_facteurs': get_facteurs_affine
+        'fonction associee': def_affine
     },
     {
         'forme': 'second_degre',
-        'content': 'f(x) = [i green]a[/i green]x²+[i green]b[/i green]x+[i green]c[/i green]',
-        'fonction_get_facteurs': get_facteurs_second_degre
+        'content': 'f(x) = [i green]a[/i green]x²+[i green]b[/i green]x+[i green]c[/i green]    [#818488](a ∈ ℝ\\0)[/#818488]',
+        'fonction associee': def_second_degre
     }
 ]
+selecteur_1er = Selecteur('Fonction du type', options_selecteur_1er, 'Sélectionnez la forme de la fonction')
 
-while True:
+options_main_menu = [
+    {
+        'content': 'Ajouter une fonction à étudier',
+        'fonction associee': selecteur_1er.prompt
+    },
+    {
+        'content': 'Quitter',
+        'fonction associee': prog_exit
+    }
+]
+main_menu = Selecteur('Choisissez une action', options_main_menu)
+
+execute = True #valeur d'exécution
+
+
+
+
+system('cls')
+console.print(f"""\nBienvenu sur [link={prog_info['release_link']}]f-study {prog_info['version']}[/link]
+
+Pour signaler un bug ou suggérer une nouvelle fonctionnalité créez une issue [link=https://github.com/Nyde2283/f-study/issues/new/choose]ici[/link].   [#63666A](Ctrl+Click)[/#63666A]""")
+input('\nAppuyez sur Enter pour continuer...')
+
+while execute:
     try:
-        select_i = selection(options)
-        select = options[select_i]
-        facteurs = select["fonction_get_facteurs"]()
-        f = Fonction(select["forme"], facteurs)
-
+        main_menu.prompt()
         system('cls')
-        console.print('\n')
-        f.display()
-        console.print('\n\n[#818488]Pour faire une demande de nouvelle fonctionnalité \nou pour signaler un bug : [/#818488]https://github.com/Nyde2283/f-study/issues   [#63666A](Ctrl+Click)[/#63666A]', highlight=False)
-        console.input('\n\n[black on white]Appuyer sur Entrée pour continuer...[/black on white]')
+        if execute: #empêche d'exécuter si l'option quitté est choisie
+            console.print('\n')
+            Fonction.fonction.display()
+            console.input('\n\n[black on white]Appuyer sur Entrée pour continuer...[/black on white]')
     except:
         display_error('Something went wrong')
         pass
