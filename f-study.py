@@ -286,7 +286,7 @@ options_selecteur_1er = [
     },
     {
         'forme': 'second_degre',
-        'content': 'f(x) = [i green]a[/i green]x²+[i green]b[/i green]x+[i green]c[/i green]',
+        'content': 'f(x) = [i green]a[/i green]x²+[i green]b[/i green]x+[i green]c[/i green]    [#818488](a ∈ ℝ\\0)[/#818488]',
         'fonction associee': def_second_degre
     }
 ]
