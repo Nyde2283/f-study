@@ -47,6 +47,7 @@ def get_number(msg, var):
     return response
 
 def prog_exit():
+    """Change la valeur d'exécution sur Flase"""
     global execute
     execute = False
 
@@ -238,14 +239,21 @@ class Fonction:
         console.print('\n\n[#818488]Certaines valeurs peuvent être arrondies.[/#818488]')
 
 class Selecteur:
-    def __init__(self, prompt_msg, options, prompt_title=None):
+    def __init__(self, prompt_msg: str, options: list[dict], prompt_title: str = None):
+        """Créer un menu de sélection
+
+        Args:
+            prompt_msg (str): instruction donnée à la fin du menu (après le options)
+            options (list[dict]): liste des options à afficher
+            prompt_title (str, optional): message à afficher au début du menu (avant les options). Defaults to None.
+        """
         self.prompt_title = prompt_title
         self.options = options
         self.prompt_msg = prompt_msg
 
     def prompt(self):
         select = None
-        options_list = '[1'
+        options_list = '[1' #liste des valeurs fonctionnelles pour l'input
         for i in range(1, len(self.options)):
             options_list += f'/{i+1}'
         options_list += ']'
@@ -260,12 +268,12 @@ class Selecteur:
                 console.print(f'[#61d6d6][{i+1}][/#61d6d6] : {self.options[i]["content"]}')
             select = console.input(f'\n\n{self.prompt_msg} [#61d6d6]{options_list}[/#61d6d6] : ')
             try:
-                select = int(select) - 1
-                if select not in range(len(self.options)+1):
-                    select = None
+                select = int(select) - 1 #vérifie que l'input est un nombre (entier)
+                if select not in range(len(self.options)+1): #vérifie que l'input ne fait pas parti des options
+                    select = None #permet de rester dans la boucle while
             except:
                 pass
-        return_value = self.options[select]["fonction associee"]()
+        return_value = self.options[select]["fonction associee"]() #exécute la fonction associée à l'option et récupère son return (même si elle ne return pas)
 
         return return_value
 
@@ -298,7 +306,7 @@ options_main_menu = [
 ]
 main_menu = Selecteur('Choisissez une action', options_main_menu)
 
-execute = True
+execute = True #valeur d'exécution
 
 
 
@@ -313,7 +321,7 @@ while execute:
     try:
         main_menu.prompt()
         system('cls')
-        if execute:
+        if execute: #empêche d'exécuter si l'option quitté est choisie
             console.print('\n')
             Fonction.fonction.display()
             console.input('\n\n[black on white]Appuyer sur Entrée pour continuer...[/black on white]')
