@@ -1,8 +1,16 @@
 # f-study
-f-study est un programme qui a pour but de faire des études de fonctions (déduire le tableau de signe, le sens de variation, etc...).
-Le projet vient d'être lancer.
 
-f-study is a program which aims to make studies of functions (deduce the sign table, the direction of variation, etc.).
-The project has just been launched.
+f-study est programme Python qui facilite les études de fonctions.
 
-Translate from French to English by [DeepL translator](https://www.deepl.com/translator)
+## Fonctions supportées
+
+- Fonctions affines *(a𝑥+b)*
+- Polynômes du second degré *(a𝑥²+b𝑥+c)*
+
+# ⚠️ Note aux utilisateurs ⚠️
+
+f-study est encore en phase de conception ce qui veut dire que l'interface et les fonctionnalités peuvent être amenées à changer régulièrement et surtout qu'il y a de forte chance que vous rencontriez des bugs.
+
+Cela ne vous empêche pas de l'utiliser mais prenez vos précautions, partez du principe que le résultat peut être faux. (si c'est le cas ouvrez une [issue](https://github.com/Nyde2283/f-study/issues/new/choose))
+
+Dans le cas où vous seriez un étudiant il est vivement conseillé d'utiliser f-study uniquement pour vérifier vos résultats, surtout si vous êtes encore lycéen.
