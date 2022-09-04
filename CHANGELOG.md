@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+Nothing
+
+## [0.2.0] - 2022-09-04
+
 ### Added
 
 - Support des nombres sous forme de fraction (ex: 1/3) https://github.com/Nyde2283/f-study/pull/16
@@ -30,3 +34,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Le programme ne crash plus quand du texte est rentré lors de la définition d'une fonction https://github.com/Nyde2283/f-study/issues/18
 
 [Unreleased]: https://github.com/Nyde2283/f-study/compare/v0.1.0...dev
+[0.2.0]: https://github.com/Nyde2283/f-study/compare/v0.1.0...v0.2.0
