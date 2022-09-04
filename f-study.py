@@ -22,36 +22,46 @@ from rich.table import Table
 from rich import box
 
 
-console = Console(highlight=False)
+console = Console(highlight=False) #désactive le formatage auto pour éviter des incohérences dans la coloration
 
 
 
 
-def get_number(msg, var):
+def get_number(msg: str, var: str) -> (float | int):
+    """Demande un nombre en input puis le return
+
+    Args:
+        msg (str): message à afficher avant l'input
+        var (str): nom correspondant à la variable demandé à l'utilisateur
+
+    Returns:
+        float | int: nombre donné par l'utilisateur
+    """
     response = None
     while response==None:
         system('cls')
         console.print(msg)
         response = console.input(f'{var} = ')
         try:
-            response = float(response)
+            response = float(response) #test si l'input est un nombre
         except:
             try:
-                i = response.index('/')
+                i = response.index('/') #test si le nombre peut être une fraction
                 numerateur = float(response[:i])
                 denominateur = float(response[i+1:])
                 response = numerateur/denominateur
             except:
-                response = None
+                response = None #permet de relancer la boucle while
     if response.is_integer(): response = int(response)
     return response
 
-def prog_exit():
+def prog_exit() -> None:
     """Change la valeur d'exécution sur Flase"""
     global execute
     execute = False
 
-def def_affine():
+def def_affine() -> None:
+    """génère une fonction affine"""
     msg = '\nf(x) = [i green blink]a[/i green blink]x+[i green]b[/i green]\n'
     a = get_number(msg, 'a')
 
@@ -60,7 +70,8 @@ def def_affine():
 
     f = Fonction('affine', [a, b])
 
-def def_second_degre():
+def def_second_degre() -> None:
+    """génère une fonction du second degré"""
     a = 0
     msg = '\nf(x) = [i green blink]a[/i green blink]x²+[i green]b[/i green]x+[i green]c[/i green]\n'
     while a==0:
@@ -74,9 +85,18 @@ def def_second_degre():
 
     f = Fonction('second_degre', [a, b, c])
 
-def anal_affine(name, facteurs):
+def anal_affine(name: str, facteurs: list[float | int]) -> tuple[str, str, list[str], list[str]]:
+    """Analyse une fonction affine
+
+    Args:
+        name (str): nom de la fonction
+        facteurs (list[float | int]): liste des facteurs [a, b]
+
+    Returns:
+        tuple[str, str, list[str], list[str]]: tuple contenant la fonction et sa dérivée sous forme de texte et son signe et sa variation sous forme de liste
+    """
     a, b = facteurs
-    
+
     fonction = f'{name}(x) = '
     if a==0:
         if b==0: fonction += '0'
@@ -92,25 +112,34 @@ def anal_affine(name, facteurs):
 
     derivee = f'{name}\'(x) = {round(a, 3)}'
 
-    if a>0:
-        x0 = round(-b/a, 3)
+    if a>0: #f(x) croissant
+        x0 = round(-b/a, 3) #x tel que ax+b = 0
         if x0.is_integer(): x0 = int(x0)
         signe = ['-∞', '-', f'{x0}', '+', '+∞']
-        varia = ['-∞', '+', '+∞']
-    elif a<0:
-        x0 = round(-b/a, 3)
+        varia = ['-∞', '+', '+∞'] #+ pour croissant
+    elif a<0: #f(x) décroissant
+        x0 = round(-b/a, 3) #x tel que ax+b = 0
         if x0.is_integer(): x0 = int(x0)
         signe = ['-∞', '+', f'{x0}', '-', '+∞']
-        varia = ['-∞', '-', '+∞']
-    else:
+        varia = ['-∞', '-', '+∞'] #- pour décroissant
+    else: #fonction constante qui ne passe pas par 0
         if b>0: signe = ['-∞', '+', '+∞']
         elif b<0: signe = ['-∞', '-', '+∞']
         else: signe = ['-∞', '0', '+∞']
-        varia = ['-∞', '0', '+∞']
+        varia = ['-∞', '0', '+∞'] #0 pour constant
 
     return fonction, derivee, signe, varia
 
-def anal_second_degre(name, facteurs):
+def anal_second_degre(name: str, facteurs: list[float | int]) -> tuple[str, str, list[str], list[str]]:
+    """Analyse une fonction du second degré
+
+    Args:
+        name (str): nom de la fonction
+        facteurs (list[float  |  int]): liste des facteurs [a, b, c]
+
+    Returns:
+        tuple[str, str, list[str], list[str]]: tuple contenant la fonction et sa dérivée sous forme de texte et son signe et sa variation sous forme de liste
+    """
     a, b, c = facteurs
 
     fonction = f'{name}(x) = '
@@ -129,7 +158,7 @@ def anal_second_degre(name, facteurs):
     #sous entendu if c==0: pass
 
     temp = round(a*2, 3)
-    if type(temp)==float and temp.is_integer(): temp = int(temp)
+    if type(temp)==float and temp.is_integer(): temp = int(temp) #besoin de vérif que temp est un float parce qu'il peut être un int si a est un int
     derivee = f'{name}\'(x) = {temp}x'
     if b>0: derivee += f'+{round(b, 3)}'
     elif b<0: derivee += f'{round(b, 3)}'
@@ -139,52 +168,60 @@ def anal_second_degre(name, facteurs):
     Sy = f(Sx)
     if Sx.is_integer(): Sx = int(Sx)
     if Sy.is_integer(): Sy = int(Sy)
-    S = {'x': f'{round(Sx, 3)}', 'y': f'{round(Sy, 3)}'}
+    S = {'x': f'{round(Sx, 3)}', 'y': f'{round(Sy, 3)}'} #S pour Sommet de la courbe
 
     delta = b**2-4*a*c
-    if delta>0:
+    if delta>0: #2 racines
         x1 = round((-b-sqrt(delta))/(2*a), 3)
         x2 = round((-b+sqrt(delta))/(2*a), 3)
         if x1.is_integer(): x1 = int(x1)
         if x2.is_integer(): x2 = int(x2)
         if x1>x2:
             x1, x2 = x2, x1
-        if a>0:
+        if a>0: #la courbe a un minimum en dessous de l'axe des abscisses
             signe = ['-∞', '+', f'{x1}', '-', f'{x2}', '+', '+∞']
-        else:
+        else: #la courbe a un maximum au dessus de l'axe des abscisses
             signe = ['-∞', '-', f'{x1}', '+', f'{x2}', '-', '+∞']
-    elif delta==0:
+    elif delta==0: #1 racine
         x0 = round(-b/(2*a), 3)
         if x0.is_integer(): x0 = int(x0)
-        if a>0:
+        if a>0: #la courbe a un minimum sur l'axe des abscisses
             signe = ['-∞', '+', f'{x0}', '+', '+∞']
-        else:
+        else: #la courbe a un maximum sur l'axe des abscisses
             signe = ['-∞', '-', f'{x0}', '-' '+∞']
-    else:
-        if a>0:
+    else: #aucune racine
+        if a>0: #la courbe a un minimum au dessus de l'axe des abscisses
             signe = ['-∞', '+', '+∞']
-        else:
+        else: #la courbe a un maximum en dessous de l'axe des abscisses
             signe = ['-∞', '-', '+∞']
 
     if a>0:
-        varia = ['-∞', '-', S, '+', '+∞']
+        varia = ['-∞', '-', S, '+', '+∞'] #- pour décroissant
     else:
-        varia = ['-∞', '+', S, '-', '+∞']
+        varia = ['-∞', '+', S, '-', '+∞'] #+ pour croissant
     
     return fonction, derivee, signe, varia
 
 
 class Fonction:
-    def __init__(self, forme: str, facteurs: list, name='f'):
+    def __init__(self, forme: str, facteurs: list[float | int], name: str = 'f') -> None:
+        """Créer une fonction
+
+        Args:
+            forme (str): nom de la forme de la fonction
+            facteurs (list[float  |  int]): liste des facteurs
+            name (str, optional): nom de la fonction. Defaults to 'f'.
+        """
         self.name = name
         match forme:
             case 'affine':
                 self.fonction, self.derivee, self.signe, self.varia = anal_affine(name, facteurs)
             case 'second_degre':
                 self.fonction, self.derivee, self.signe, self.varia = anal_second_degre(name, facteurs)
-        Fonction.fonction = self
+        Fonction.fonction = self #permet d'utiliser la fonction sans connaître sons nom
 
     def display(self):
+        """Affiche l'étude de la fonction (son tableau de signe, de variation, la fonction et sa dérivée)"""
         t_signe = [
             ['', 'x='],
             ['signe', f'{self.name}(x)']
@@ -194,29 +231,29 @@ class Fonction:
             ['signe', f'{self.name}\'(x)'],
             ['varia', f'{self.name}(x)']
         ]
-        for i in range(len(self.signe)):
-            if i%2==0:
-                if self.signe[i] in ('-∞', '+∞'):
+        for i in range(len(self.signe)): #construit le tableau de signe
+            if i%2==0: #si i est paire
+                if self.signe[i] in ('-∞', '+∞'): #si l'on est à la fin ou au début du tableau
                     t_signe[0].append(self.signe[i])
                     t_signe[1].append('')
                 else:
-                    t_signe[0].append(self.signe[i])
+                    t_signe[0].append(self.signe[i]) #correspond à une racine
                     t_signe[1].append('0')
-            elif i%2==1:
+            elif i%2==1: #si i est impaire
                 t_signe[0].append('')
                 t_signe[1].append(self.signe[i])
-        for i in range(len(self.varia)):
-            if i%2==0:
-                if self.varia[i] in ('-∞', '+∞'):
+        for i in range(len(self.varia)): #construit le tableau de variation
+            if i%2==0: #si i est paire
+                if self.varia[i] in ('-∞', '+∞'): #si l'on est à la fin ou au début du tableau
                     t_varia[0].append(self.varia[i])
                     t_varia[1].append('')
                     t_varia[2].append('')
                 else:
-                    t_varia[0].append(self.varia[i]["x"])
+                    t_varia[0].append(self.varia[i]["x"]) #correspond à un changement de variation
                     t_varia[1].append('0')
                     t_varia[2].append(self.varia[i]["y"])
-            else:
-                match self.varia[i]:
+            else: #si i est impaire
+                match self.varia[i]: #attribut les bons symboles en fonction de la variation
                     case '+':
                         varia = ('+', '↗')
                     case '-':
@@ -227,13 +264,13 @@ class Fonction:
                 t_varia[1].append(varia[0])
                 t_varia[2].append(varia[1])
 
-        for t in (t_signe, t_varia):
+        for t in (t_signe, t_varia): #boucle sur chaque tableau
             tableau = Table(box=box.SIMPLE, padding=(0,2,0,2), leading=1)
             for i in range(len(t[0])):
-                tableau.add_column(t[0][i], justify='center') #ajout des en-têtes de colonnes un par un (première ligne de t)
+                tableau.add_column(t[0][i], justify='center') #ajout des en-têtes de colonnes une par une (première ligne de t)
             for i in range(1, len(t)):
                 tableau.add_row(*t[i]) #ajout des lignes une par une
-            console.print(tableau) # affichage de la table
+            console.print(tableau) # affichage du tableau
         console.print('\n')
         console.print(self.fonction, self.derivee, sep='\n')
         console.print('\n\n[#818488]Certaines valeurs peuvent être arrondies.[/#818488]')
