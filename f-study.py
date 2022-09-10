@@ -310,7 +310,7 @@ class Selecteur:
             select = console.input(f'\n\n{self.prompt_msg} [#61d6d6]{options_list}[/#61d6d6] : ')
             try:
                 select = int(select) - 1 #vérifie que l'input est un nombre (entier)
-                if select not in range(len(self.options)+1): #vérifie que l'input ne fait pas parti des options
+                if select not in range(len(self.options)): #vérifie que l'input ne fait pas parti des options
                     select = None #permet de rester dans la boucle while
             except:
                 pass
