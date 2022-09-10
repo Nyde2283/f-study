@@ -5,7 +5,7 @@ from math import sqrt
 from error import def_debug_info, display_error, exit_on_error
 
 prog_info = {
-    'version': 'v0.1.1-dev',
+    'version': 'v0.2.1',
     'release_link': 'https://github.com/Nyde2283/f-study/releases/tag/v0.1.0',
     'py_version': f'{version_info.major}.{version_info.minor}.{version_info.micro}',
     'platforme': platform()
@@ -27,6 +27,10 @@ console = Console(highlight=False) #désactive le formatage auto pour éviter de
 
 
 
+def cls():
+    if platform()=='Windows': system('cls')
+    else: system('clear')
+
 def get_number(msg: str, var: str) -> (float | int):
     """Demande un nombre en input puis le return
 
@@ -39,7 +43,7 @@ def get_number(msg: str, var: str) -> (float | int):
     """
     response = None
     while response==None:
-        system('cls')
+        cls()
         console.print(msg)
         response = console.input(f'{var} = ')
         try:
@@ -296,7 +300,7 @@ class Selecteur:
         options_list += ']'
 
         while type(select)!=int:
-            system('cls')
+            cls()
             if self.prompt_title != None:
                 console.print(f'\n\n{self.prompt_title}\n')
             else:
@@ -306,7 +310,7 @@ class Selecteur:
             select = console.input(f'\n\n{self.prompt_msg} [#61d6d6]{options_list}[/#61d6d6] : ')
             try:
                 select = int(select) - 1 #vérifie que l'input est un nombre (entier)
-                if select not in range(len(self.options)+1): #vérifie que l'input ne fait pas parti des options
+                if select not in range(len(self.options)): #vérifie que l'input ne fait pas parti des options
                     select = None #permet de rester dans la boucle while
             except:
                 pass
@@ -346,7 +350,7 @@ execute = True #valeur d'exécution
 
 
 
-system('cls')
+cls()
 console.print(f"""\nBienvenu sur [link={prog_info['release_link']}]f-study {prog_info['version']}[/link]
 
 Pour signaler un bug ou suggérer une nouvelle fonctionnalité créez une issue [link=https://github.com/Nyde2283/f-study/issues/new/choose]ici[/link].   [#63666A](Ctrl+Click)[/#63666A]""")
@@ -355,7 +359,7 @@ input('\nAppuyez sur Enter pour continuer...')
 while execute:
     try:
         main_menu.prompt()
-        system('cls')
+        cls()
         if execute: #empêche d'exécuter si l'option quitté est choisie
             console.print('\n')
             Fonction.fonction.display()
