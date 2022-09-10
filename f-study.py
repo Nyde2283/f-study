@@ -5,7 +5,7 @@ from math import sqrt
 from error import def_debug_info, display_error, exit_on_error
 
 prog_info = {
-    'version': 'v0.1.1-dev',
+    'version': 'v0.2.1',
     'release_link': 'https://github.com/Nyde2283/f-study/releases/tag/v0.1.0',
     'py_version': f'{version_info.major}.{version_info.minor}.{version_info.micro}',
     'platforme': platform()
