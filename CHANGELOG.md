@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [Unreleased]
+
 ## [0.2.1] - 2022-09-10
 
 ### Fixed
@@ -14,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - La valeur juste après la dernière d'un menu de sélection ne provoque plus d'erreur
 - L'affichage se réinitialise correctement sur les terminaux Linux et MACOS
 
-## [0.2.0] - 2022-09-04 (broken version !)
+## [0.2.0] - 2022-09-04
 
 ### Added
 
@@ -37,6 +39,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Le programme se relance de lui-même quand il est stoppé par une erreur https://github.com/Nyde2283/f-study/pull/20
 - Le programme ne crash plus quand du texte est rentré lors de la définition d'une fonction https://github.com/Nyde2283/f-study/issues/18
 
-[Unreleased]: https://github.com/Nyde2283/f-study/compare/v0.1.0...dev
+[Unreleased]: https://github.com/Nyde2283/f-study/compare/v0.2.1...dev
 [0.2.1]: https://github.com/Nyde2283/f-study/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/Nyde2283/f-study/compare/v0.1.0...v0.2.0

@@ -2,22 +2,22 @@ from sys import version_info
 from os import system
 from platform import system as platform
 from math import sqrt
-from error import def_debug_info, display_error, exit_on_error
+import error
 
 prog_info = {
-    'version': 'v0.2.1',
-    'release_link': 'https://github.com/Nyde2283/f-study/releases/tag/v0.1.0',
+    'version': 'v0.?.?-dev',
+    'release_link': 'https://github.com/Nyde2283/f-study/releases/tag/v0.2.1',
     'py_version': f'{version_info.major}.{version_info.minor}.{version_info.micro}',
     'platforme': platform()
 }
-def_debug_info(prog_info)
+error.def_debug_info(prog_info)
 
-if version_info<(3, 10): exit_on_error('Bad Python version')
+if version_info<(3, 10): error.exit_on_error('Bad Python version')
 
 try:
     from rich.console import Console
 except:
-    exit_on_error('Rich not found')
+    error.exit_on_error('Rich not found')
 from rich.table import Table
 from rich import box
 
@@ -280,7 +280,7 @@ class Fonction:
         console.print('\n\n[#818488]Certaines valeurs peuvent être arrondies.[/#818488]')
 
 class Selecteur:
-    def __init__(self, prompt_msg: str, options: list[dict], prompt_title: str = None):
+    def __init__(self, prompt_msg: str, options: list[dict], prompt_title: str = ''):
         """Créer un menu de sélection
 
         Args:
@@ -301,7 +301,7 @@ class Selecteur:
 
         while type(select)!=int:
             cls()
-            if self.prompt_title != None:
+            if self.prompt_title != '':
                 console.print(f'\n\n{self.prompt_title}\n')
             else:
                 console.print('\n\n')
@@ -365,7 +365,7 @@ while execute:
             Fonction.fonction.display()
             console.input('\n\n[black on white]Appuyer sur Entrée pour continuer...[/black on white]')
     except:
-        display_error('Something went wrong')
+        error.display_error('Something went wrong')
         pass
 
 
