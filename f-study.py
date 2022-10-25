@@ -2,7 +2,7 @@ from sys import version_info
 from os import system
 from platform import system as platform
 from math import sqrt
-import error
+from error import *
 
 prog_info = {
     'version': 'v0.?.?-dev',
@@ -10,14 +10,14 @@ prog_info = {
     'py_version': f'{version_info.major}.{version_info.minor}.{version_info.micro}',
     'platforme': platform()
 }
-error.def_debug_info(prog_info)
+def_debug_info(prog_info)
 
-if version_info<(3, 10): error.exit_on_error('Bad Python version')
+if version_info<(3, 10): BadPythonVersion.raise_and_exit()
 
 try:
     from rich.console import Console
-except:
-    error.exit_on_error('Rich not found')
+except Exception as e:
+    RichNotFound.raise_and_exit(e)
 from rich.table import Table
 from rich import box
 
@@ -364,8 +364,10 @@ while execute:
             console.print('\n')
             Fonction.fonction.display()
             console.input('\n\n[black on white]Appuyer sur Entrée pour continuer...[/black on white]')
+    except KeyboardInterrupt:
+        exit()
     except:
-        error.display_error('Something went wrong')
+        SomethinWentWrong.raise_and_continu()
         pass
 
 
