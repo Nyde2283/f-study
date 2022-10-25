@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Ajout de l'exception levée à l'affichage d'une erreur
+
+## Fixed
+
+- Correction de certaines fautes d'orthographe
+
 ## [0.2.1] - 2022-09-10
 
 ### Fixed

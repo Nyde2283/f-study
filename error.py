@@ -98,10 +98,10 @@ BadPythonVersion = Error(
 RichNotFound = Error(
     'Rich not found',
     """La bibliothèque Rich n'est pas installée sur votre ordinateur.
-Elle est indispensable pour afficher les tableaux.
-(Si vous utilisez f-study via un exécutable veuillez signaler cette erreur, merci)""",
+    Elle est indispensable pour afficher les tableaux.
+    (Si vous utilisez f-study via un exécutable veuillez signaler cette erreur, merci)""",
     """Vous pouvez installer Rich via cette commande : python -m pip install rich
-Pour plus d'informations consultez la page \033]8;;https://pypi.org/project/rich/\033\\PyPi\033]8;;\033\\ ou la page \033]8;;https://github.com/Textualize/rich\033\\GitHube\033]8;;\033\\ de Rich."""
+    Pour plus d'informations consultez la page \033]8;;https://pypi.org/project/rich/\033\\PyPi\033]8;;\033\\ ou la page \033]8;;https://github.com/Textualize/rich\033\\GitHube\033]8;;\033\\ de Rich."""
 )
 
 SomethinWentWrong = Error(

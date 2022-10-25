@@ -1,3 +1,4 @@
+from ast import literal_eval
 from sys import version_info
 from os import system
 from platform import system as platform
@@ -27,7 +28,8 @@ console = Console(highlight=False) #désactive le formatage auto pour éviter de
 
 
 
-def cls():
+def cls() -> None:
+    """Supprime le contenu de la console"""
     if platform()=='Windows': system('cls')
     else: system('clear')
 
@@ -354,7 +356,7 @@ cls()
 console.print(f"""\nBienvenu sur [link={prog_info['release_link']}]f-study {prog_info['version']}[/link]
 
 Pour signaler un bug ou suggérer une nouvelle fonctionnalité créez une issue [link=https://github.com/Nyde2283/f-study/issues/new/choose]ici[/link].   [#63666A](Ctrl+Click)[/#63666A]""")
-input('\nAppuyez sur Enter pour continuer...')
+input('\nAppuyez sur Entrée pour continuer...')
 
 while execute:
     try:
