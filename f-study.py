@@ -1,25 +1,27 @@
-from sys import version_info
+from math import sqrt
 from os import system
 from platform import system as platform
-from math import sqrt
-from error import def_debug_info, display_error, exit_on_error
+from sys import version_info
+
+from decorators import *
+from error import *
 
 prog_info = {
-    'version': 'v0.2.1',
-    'release_link': 'https://github.com/Nyde2283/f-study/releases/tag/v0.1.0',
+    'version': 'v0.?.?-dev',
+    'release_link': 'https://github.com/Nyde2283/f-study/releases/tag/v0.2.1',
     'py_version': f'{version_info.major}.{version_info.minor}.{version_info.micro}',
     'platforme': platform()
 }
 def_debug_info(prog_info)
 
-if version_info<(3, 10): exit_on_error('Bad Python version')
+if version_info<(3, 10): BadPythonVersion.raise_and_exit()
 
 try:
     from rich.console import Console
-except:
-    exit_on_error('Rich not found')
-from rich.table import Table
+except Exception as e:
+    RichNotFound.raise_and_exit(e)
 from rich import box
+from rich.table import Table
 
 
 console = Console(highlight=False) #désactive le formatage auto pour éviter des incohérences dans la coloration
@@ -27,10 +29,12 @@ console = Console(highlight=False) #désactive le formatage auto pour éviter de
 
 
 
-def cls():
+def cls() -> None:
+    """Supprime le contenu de la console"""
     if platform()=='Windows': system('cls')
     else: system('clear')
 
+@check_args
 def get_number(msg: str, var: str) -> (float | int):
     """Demande un nombre en input puis le return
 
@@ -58,6 +62,15 @@ def get_number(msg: str, var: str) -> (float | int):
                 response = None #permet de relancer la boucle while
     if response.is_integer(): response = int(response)
     return response
+
+@check_args
+def str_puissance(x: int) -> str:
+    puissance_str = ['⁰', '¹', '²', '³', '⁴', '⁵', '⁶', '⁷', '⁸', '⁹']
+    x = str(x)
+    temp = ''
+    for carac in x:
+        temp += puissance_str[int(carac)]
+    return temp
 
 def prog_exit() -> None:
     """Change la valeur d'exécution sur Flase"""
@@ -89,7 +102,8 @@ def def_second_degre() -> None:
 
     f = Fonction('second_degre', [a, b, c])
 
-def anal_affine(name: str, facteurs: list[float | int]) -> tuple[str, str, list[str], list[str]]:
+@check_args
+def anal_affine(name: str, facteurs: list) -> tuple[str, str, list[str], list[str]]:
     """Analyse une fonction affine
 
     Args:
@@ -134,7 +148,8 @@ def anal_affine(name: str, facteurs: list[float | int]) -> tuple[str, str, list[
 
     return fonction, derivee, signe, varia
 
-def anal_second_degre(name: str, facteurs: list[float | int]) -> tuple[str, str, list[str], list[str]]:
+@check_args
+def anal_second_degre(name: str, facteurs: list) -> tuple[str, str, list[str], list[str]]:
     """Analyse une fonction du second degré
 
     Args:
@@ -156,7 +171,7 @@ def anal_second_degre(name: str, facteurs: list[float | int]) -> tuple[str, str,
     elif b>0: fonction += f'+{b}x'
     elif b<0: fonction += f'{b}x'
     #sous entendu if b==0: pass
-    
+
     if c>0: fonction += f'+{c}'
     elif c<0: fonction += f'{c}'
     #sous entendu if c==0: pass
@@ -203,12 +218,13 @@ def anal_second_degre(name: str, facteurs: list[float | int]) -> tuple[str, str,
         varia = ['-∞', '-', S, '+', '+∞'] #- pour décroissant
     else:
         varia = ['-∞', '+', S, '-', '+∞'] #+ pour croissant
-    
+
     return fonction, derivee, signe, varia
 
 
 class Fonction:
-    def __init__(self, forme: str, facteurs: list[float | int], name: str = 'f') -> None:
+    @check_args
+    def __init__(self, forme: str, facteurs: list, name: str = 'f') -> None:
         """Créer une fonction
 
         Args:
@@ -217,12 +233,43 @@ class Fonction:
             name (str, optional): nom de la fonction. Defaults to 'f'.
         """
         self.name = name
+        for i in range(len(facteurs)):
+            if facteurs[i] != 0: break
+            facteurs.pop(i)
+        self.facteurs = facteurs
         match forme:
             case 'affine':
                 self.fonction, self.derivee, self.signe, self.varia = anal_affine(name, facteurs)
             case 'second_degre':
                 self.fonction, self.derivee, self.signe, self.varia = anal_second_degre(name, facteurs)
         Fonction.fonction = self #permet d'utiliser la fonction sans connaître sons nom
+
+    def __str__(self) -> str:
+        result = f'{self.name}(x) = '
+        for i in range(len(self.facteurs)):
+            facteur = self.facteurs[i]
+            puissance = len(self.facteurs)-1-i
+            if facteur == 1:
+                result += '[#34ADFE]+[/#34ADFE]'
+            elif facteur == -1:
+                result += '[purple]-[/purple]'
+            elif facteur > 0:
+                if result[len(result)-1] == ' ':
+                    result += '[#34ADFE]' + str(facteur) + '[/#34ADFE]'
+                else:
+                    result += '+' + '[#34ADFE]' + str(facteur) + '[/#34ADFE]'
+            elif facteur < 0:
+                result += '[purple]' + str(facteur) + '[/purple]'
+            
+            if facteur!=0 and puissance>0:
+                result += '[green]x[/green]'
+                if puissance > 1:
+                    result += '[green]' + str_puissance(puissance) + '[/green]'
+
+        if len(result)==7:
+            result += '0'
+
+        return result        
 
     def display(self):
         """Affiche l'étude de la fonction (son tableau de signe, de variation, la fonction et sa dérivée)"""
@@ -280,7 +327,8 @@ class Fonction:
         console.print('\n\n[#818488]Certaines valeurs peuvent être arrondies.[/#818488]')
 
 class Selecteur:
-    def __init__(self, prompt_msg: str, options: list[dict], prompt_title: str = None):
+    @check_args
+    def __init__(self, prompt_msg: str, options: list, prompt_title: str = ''):
         """Créer un menu de sélection
 
         Args:
@@ -301,7 +349,7 @@ class Selecteur:
 
         while type(select)!=int:
             cls()
-            if self.prompt_title != None:
+            if self.prompt_title != '':
                 console.print(f'\n\n{self.prompt_title}\n')
             else:
                 console.print('\n\n')
@@ -354,7 +402,7 @@ cls()
 console.print(f"""\nBienvenu sur [link={prog_info['release_link']}]f-study {prog_info['version']}[/link]
 
 Pour signaler un bug ou suggérer une nouvelle fonctionnalité créez une issue [link=https://github.com/Nyde2283/f-study/issues/new/choose]ici[/link].   [#63666A](Ctrl+Click)[/#63666A]""")
-input('\nAppuyez sur Enter pour continuer...')
+input('\nAppuyez sur Entrée pour continuer...')
 
 while execute:
     try:
@@ -364,20 +412,26 @@ while execute:
             console.print('\n')
             Fonction.fonction.display()
             console.input('\n\n[black on white]Appuyer sur Entrée pour continuer...[/black on white]')
+    except KeyboardInterrupt:
+        exit()
     except:
-        display_error('Something went wrong')
+        SomethinWentWrong.raise_and_continu()
         pass
 
 
 
 
-#    Copyright 2022 CHEVEREAU Edwyn
-#    Licensed under the Apache License, Version 2.0 (the "License");
-#    you may not use this file except in compliance with the License.
-#    You may obtain a copy of the License at
-#        http://www.apache.org/licenses/LICENSE-2.0
-#    Unless required by applicable law or agreed to in writing, software
-#    distributed under the License is distributed on an "AS IS" BASIS,
-#    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-#    See the License for the specific language governing permissions and
-#    limitations under the License.
+#    f-study
+#    Copyright (C) CHEVEREAU Edwyn
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    GNU GPLv3: https://www.gnu.org/licenses/gpl-3.0.html
