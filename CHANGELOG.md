@@ -10,7 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Ajout de l'exception levée à l'affichage d'une erreur
+- L'exception levée au cours d'une erreure est maintenant affihcée
+- f-study passe sous la license GNU GPLv3
 
 ## Fixed
 
