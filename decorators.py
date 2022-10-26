@@ -1,6 +1,4 @@
 import functools
-from os import system
-from re import A
 
 
 def check_args(fct) -> None:
