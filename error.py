@@ -34,29 +34,12 @@ class Error:
         Args:
             e (Exception, optional): Exception levée (si il y en a une). Defaults to AssertionError.
         """
-        print(
-f"""\n\nCode d'erreur :
-    {self.code}
-
-message :
-    {self.msg}"""
-        )
-
+        print(f"\n\nCode d'erreur : \n\t{self.code}")
+        print(f"\nmessage : \n\t{self.msg}")
         if self.todo != None:
-            print(
-f"""\nsolution possible :
-    {self.todo}"""
-            )
-
-        print(
-f"""\ndebug info :
-    - Version de f-study : {debug_info['version']}
-    - Version de Python : {debug_info['py_version']}
-    - OS : {debug_info['platforme']}
-
-erreur levée :
-    {repr(e)}\n"""
-        )
+            print(f"\nSolution possible : \n\t{self.todo}")
+        print(f"\ndebug info : \n\t- Version de f-study : {debug_info['verion']} \n\t- Version de Python : {debug_info['py_version']} \n\t- OS : {debug_info['plateforme']}")
+        print(f"\nerreur levée : \n\t{repr(e)}\n")
         input('Appuyer sur Entrée pour quitter...')
         exit()
     
@@ -67,29 +50,12 @@ erreur levée :
         Args:
             e (Exception, optional): Exception levée (si il y en a une). Defaults to AssertionError.
         """
-        print(
-f"""\n\nCode d'erreur :
-    {self.code}
-
-message :
-    {self.msg}"""
-        )
-
+        print(f"\n\nCode d'erreur : \n\t{self.code}")
+        print(f"\nmessage : \n\t{self.msg}")
         if self.todo != None:
-            print(
-f"""\nsolution possible :
-    {self.todo}"""
-            )
-
-        print(
-f"""\ndebug info :
-    - Version de f-study : {debug_info['version']}
-    - Version de Python : {debug_info['py_version']}
-    - OS : {debug_info['platforme']}
-
-erreur levée :
-    {repr(e)}\n"""
-        )
+            print(f"\nSolution possible : \n\t{self.todo}")
+        print(f"\ndebug info : \n\t- Version de f-study : {debug_info['verion']} \n\t- Version de Python : {debug_info['py_version']} \n\t- OS : {debug_info['plateforme']}")
+        print(f"\nerreur levée : \n\t{repr(e)}\n")
         input('Appuyer sur Entrée pour continuer...')
 
 TestError = Error(
