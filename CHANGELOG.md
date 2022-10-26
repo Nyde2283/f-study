@@ -10,7 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- L'exception levée au cours d'une erreure est maintenant affihcée
+- L'exception levée au cours d'une erreure est maintenant affichée
+- Ajout / modification de code pour faciliter l'ajout des polynômes dans la prochaîne version
 - f-study passe sous la license GNU GPLv3
 
 ## Fixed
