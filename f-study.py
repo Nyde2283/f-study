@@ -1,10 +1,10 @@
-from ast import literal_eval
-from sys import version_info
+from math import sqrt
 from os import system
 from platform import system as platform
-from math import sqrt
-from error import *
+from sys import version_info
+
 from decorators import *
+from error import *
 
 prog_info = {
     'version': 'v0.?.?-dev',
@@ -20,8 +20,8 @@ try:
     from rich.console import Console
 except Exception as e:
     RichNotFound.raise_and_exit(e)
-from rich.table import Table
 from rich import box
+from rich.table import Table
 
 
 console = Console(highlight=False) #désactive le formatage auto pour éviter des incohérences dans la coloration
@@ -62,6 +62,15 @@ def get_number(msg: str, var: str) -> (float | int):
                 response = None #permet de relancer la boucle while
     if response.is_integer(): response = int(response)
     return response
+
+@check_args
+def str_puissance(x: int) -> str:
+    puissance_str = ['⁰', '¹', '²', '³', '⁴', '⁵', '⁶', '⁷', '⁸', '⁹']
+    x = str(x)
+    temp = ''
+    for carac in x:
+        temp += puissance_str[int(carac)]
+    return temp
 
 def prog_exit() -> None:
     """Change la valeur d'exécution sur Flase"""
@@ -224,12 +233,43 @@ class Fonction:
             name (str, optional): nom de la fonction. Defaults to 'f'.
         """
         self.name = name
+        for i in range(len(facteurs)):
+            if facteurs[i] != 0: break
+            facteurs.pop(i)
+        self.facteurs = facteurs
         match forme:
             case 'affine':
                 self.fonction, self.derivee, self.signe, self.varia = anal_affine(name, facteurs)
             case 'second_degre':
                 self.fonction, self.derivee, self.signe, self.varia = anal_second_degre(name, facteurs)
         Fonction.fonction = self #permet d'utiliser la fonction sans connaître sons nom
+
+    def __str__(self) -> str:
+        result = f'{self.name}(x) = '
+        for i in range(len(self.facteurs)):
+            facteur = self.facteurs[i]
+            puissance = len(self.facteurs)-1-i
+            if facteur == 1:
+                result += '[#34ADFE]+[/#34ADFE]'
+            elif facteur == -1:
+                result += '[purple]-[/purple]'
+            elif facteur > 0:
+                if result[len(result)-1] == ' ':
+                    result += '[#34ADFE]' + str(facteur) + '[/#34ADFE]'
+                else:
+                    result += '+' + '[#34ADFE]' + str(facteur) + '[/#34ADFE]'
+            elif facteur < 0:
+                result += '[purple]' + str(facteur) + '[/purple]'
+            
+            if facteur!=0 and puissance>0:
+                result += '[green]x[/green]'
+                if puissance > 1:
+                    result += '[green]' + str_puissance(puissance) + '[/green]'
+            
+        if len(result)==7:
+            result += '0'
+
+        return result        
 
     def display(self):
         """Affiche l'étude de la fonction (son tableau de signe, de variation, la fonction et sa dérivée)"""
