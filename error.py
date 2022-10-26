@@ -1,3 +1,8 @@
+from decorators import *
+
+
+
+
 def def_debug_info(prog_info):
     """Définie les information de débogage
 
@@ -8,6 +13,7 @@ def def_debug_info(prog_info):
     debug_info = prog_info
 
 class Error:
+    @check_args
     def __init__(self, code: str, msg: str, todo: str = '') -> None:
         """Créer une erreur
 
@@ -21,6 +27,7 @@ class Error:
         if todo == '': self.todo = None
         else: self.todo = todo
     
+    @check_args
     def raise_and_exit(self, e: Exception = AssertionError):
         """Affiche l'erreur et ferme le programme
 
@@ -53,6 +60,7 @@ erreur levée :
         input('Appuyer sur Entrée pour quitter...')
         exit()
     
+    @check_args
     def raise_and_continu(self, e: Exception = AssertionError):
         """Affiche l'erreur puis reprend le programme
 
