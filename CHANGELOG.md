@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
+
+## [0.2.2] - 2022-10-26
+
 ### Changed
 
 - L'exception levée au cours d'une erreure est maintenant affichée
@@ -49,6 +53,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Le programme se relance de lui-même quand il est stoppé par une erreur https://github.com/Nyde2283/f-study/pull/20
 - Le programme ne crash plus quand du texte est rentré lors de la définition d'une fonction https://github.com/Nyde2283/f-study/issues/18
 
-[Unreleased]: https://github.com/Nyde2283/f-study/compare/v0.2.1...dev
+[Unreleased]: https://github.com/Nyde2283/f-study/compare/v0.2.2...dev
+[0.2.2]: https://github.com/Nyde2283/f-study/compare/v0.2.1...v0.2.2
 [0.2.1]: https://github.com/Nyde2283/f-study/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/Nyde2283/f-study/compare/v0.1.0...v0.2.0
