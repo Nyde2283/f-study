@@ -7,8 +7,8 @@ from decorators import *
 from error import *
 
 prog_info = {
-    'version': 'v0.?.?-dev',
-    'release_link': 'https://github.com/Nyde2283/f-study/releases/tag/v0.2.1',
+    'version': 'v0.2.2',
+    'release_link': 'https://github.com/Nyde2283/f-study/releases/tag/v0.2.2',
     'py_version': f'{version_info.major}.{version_info.minor}.{version_info.micro}',
     'platforme': platform()
 }
