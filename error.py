@@ -42,7 +42,7 @@ class Error:
         print(f"\nerreur levée : \n\t{repr(e)}\n")
         input('Appuyer sur Entrée pour quitter...')
         exit()
-    
+
     @check_args
     def raise_and_continu(self, e: Exception = AssertionError):
         """Affiche l'erreur puis reprend le programme

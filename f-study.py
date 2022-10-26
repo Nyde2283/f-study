@@ -171,7 +171,7 @@ def anal_second_degre(name: str, facteurs: list) -> tuple[str, str, list[str], l
     elif b>0: fonction += f'+{b}x'
     elif b<0: fonction += f'{b}x'
     #sous entendu if b==0: pass
-    
+
     if c>0: fonction += f'+{c}'
     elif c<0: fonction += f'{c}'
     #sous entendu if c==0: pass
@@ -218,7 +218,7 @@ def anal_second_degre(name: str, facteurs: list) -> tuple[str, str, list[str], l
         varia = ['-∞', '-', S, '+', '+∞'] #- pour décroissant
     else:
         varia = ['-∞', '+', S, '-', '+∞'] #+ pour croissant
-    
+
     return fonction, derivee, signe, varia
 
 
@@ -265,7 +265,7 @@ class Fonction:
                 result += '[green]x[/green]'
                 if puissance > 1:
                     result += '[green]' + str_puissance(puissance) + '[/green]'
-            
+
         if len(result)==7:
             result += '0'
 
