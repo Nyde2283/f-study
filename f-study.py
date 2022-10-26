@@ -4,6 +4,7 @@ from os import system
 from platform import system as platform
 from math import sqrt
 from error import *
+from decorators import *
 
 prog_info = {
     'version': 'v0.?.?-dev',
@@ -33,6 +34,7 @@ def cls() -> None:
     if platform()=='Windows': system('cls')
     else: system('clear')
 
+@check_args
 def get_number(msg: str, var: str) -> (float | int):
     """Demande un nombre en input puis le return
 
@@ -91,7 +93,8 @@ def def_second_degre() -> None:
 
     f = Fonction('second_degre', [a, b, c])
 
-def anal_affine(name: str, facteurs: list[float | int]) -> tuple[str, str, list[str], list[str]]:
+@check_args
+def anal_affine(name: str, facteurs: list) -> tuple[str, str, list[str], list[str]]:
     """Analyse une fonction affine
 
     Args:
@@ -136,7 +139,8 @@ def anal_affine(name: str, facteurs: list[float | int]) -> tuple[str, str, list[
 
     return fonction, derivee, signe, varia
 
-def anal_second_degre(name: str, facteurs: list[float | int]) -> tuple[str, str, list[str], list[str]]:
+@check_args
+def anal_second_degre(name: str, facteurs: list) -> tuple[str, str, list[str], list[str]]:
     """Analyse une fonction du second degré
 
     Args:
@@ -210,7 +214,8 @@ def anal_second_degre(name: str, facteurs: list[float | int]) -> tuple[str, str,
 
 
 class Fonction:
-    def __init__(self, forme: str, facteurs: list[float | int], name: str = 'f') -> None:
+    @check_args
+    def __init__(self, forme: str, facteurs: list, name: str = 'f') -> None:
         """Créer une fonction
 
         Args:
@@ -282,7 +287,8 @@ class Fonction:
         console.print('\n\n[#818488]Certaines valeurs peuvent être arrondies.[/#818488]')
 
 class Selecteur:
-    def __init__(self, prompt_msg: str, options: list[dict], prompt_title: str = ''):
+    @check_args
+    def __init__(self, prompt_msg: str, options: list, prompt_title: str = ''):
         """Créer un menu de sélection
 
         Args:
