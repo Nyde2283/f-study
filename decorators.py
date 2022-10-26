@@ -27,18 +27,28 @@ def check_args(fct) -> None:
             annot_value = list(fct.__annotations__.values())[i]
 
             if type(annot_value) == type:
-                assert type(args[j]) == annot_value, f'TypeError: {repr(annot_key_value)} attendu | appel: {appel}'
+                if type(args[j]) != annot_value:
+                    raise TypeError(f'{repr(annot_key_value)} attendu | appel: {appel}')
             else:
-                assert args[j] == annot_value, f'ValueError: {repr(annot_key_value)} attendu | appel: {appel}'
+                if args[j] != annot_value:
+                    raise ValueError(f'{repr(annot_key_value)} attendu | appel: {appel}')
 
         for arg, value in kwargs.items():
             annot_key_value = [item for item in list(fct.__annotations__.items()) if arg in item][0]
             annot_value = fct.__annotations__[arg]
 
             if type(annot_value) == type:
-                assert type(value) == annot_value, f'TypeError: {repr(annot_key_value)} attendu | appel: {appel}'
+                if type(value) != annot_value:
+                    raise TypeError(f'{repr(annot_key_value)} attendu | appel: {appel}')
             else:
-                assert value == annot_value, f'ValueError: {repr(annot_key_value)} attendu | appel: {appel}'
+                if value != annot_value:
+                    raise ValueError(f'{repr(annot_key_value)} attendu | appel: {appel}')
 
         return fct(*args, **kwargs)
     return check
+
+@check_args
+def f(a: 5):
+    return a+1
+
+f('5')
