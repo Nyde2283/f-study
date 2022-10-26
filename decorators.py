@@ -46,9 +46,3 @@ def check_args(fct) -> None:
 
         return fct(*args, **kwargs)
     return check
-
-@check_args
-def f(a: 5):
-    return a+1
-
-f('5')
