@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Le Traceback est maintenant affiché à la place de l'Exception à l'affichage d'une erreure
+
 ### Fixed
 
 - Le bug empêchant les erreurs de s'afficher a été résolu.

@@ -1,4 +1,5 @@
 from decorators import *
+from traceback import format_exception
 
 
 
@@ -39,7 +40,7 @@ class Error:
         if self.todo != None:
             print(f"\nSolution possible : \n\t{self.todo}")
         print(f"\ndebug info : \n\t- Version de f-study : {debug_info['version']} \n\t- Version de Python : {debug_info['py_version']} \n\t- OS : {debug_info['plateforme']}")
-        print(f"\nerreur levée : \n\t{repr(e)}\n")
+        print(f"\nerreur levée : \n{''.join(format_exception(e))}\n")
         input('Appuyer sur Entrée pour quitter...')
         exit()
 
@@ -55,7 +56,7 @@ class Error:
         if self.todo != None:
             print(f"\nSolution possible : \n\t{self.todo}")
         print(f"\ndebug info : \n\t- Version de f-study : {debug_info['version']} \n\t- Version de Python : {debug_info['py_version']} \n\t- OS : {debug_info['plateforme']}")
-        print(f"\nerreur levée : \n\t{repr(e)}\n")
+        print(f"\nerreur levée : \n{''.join(format_exception(e))}\n")
         input('Appuyer sur Entrée pour continuer...')
 
 TestError = Error(
