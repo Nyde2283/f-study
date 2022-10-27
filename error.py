@@ -28,7 +28,7 @@ class Error:
         else: self.todo = todo
     
     @check_args
-    def raise_and_exit(self, e: Exception = AssertionError):
+    def raise_and_exit(self, e = AssertionError):
         """Affiche l'erreur et ferme le programme
 
         Args:
@@ -38,13 +38,13 @@ class Error:
         print(f"\nmessage : \n\t{self.msg}")
         if self.todo != None:
             print(f"\nSolution possible : \n\t{self.todo}")
-        print(f"\ndebug info : \n\t- Version de f-study : {debug_info['verion']} \n\t- Version de Python : {debug_info['py_version']} \n\t- OS : {debug_info['plateforme']}")
+        print(f"\ndebug info : \n\t- Version de f-study : {debug_info['version']} \n\t- Version de Python : {debug_info['py_version']} \n\t- OS : {debug_info['plateforme']}")
         print(f"\nerreur levée : \n\t{repr(e)}\n")
         input('Appuyer sur Entrée pour quitter...')
         exit()
 
     @check_args
-    def raise_and_continu(self, e: Exception = AssertionError):
+    def raise_and_continu(self, e = AssertionError):
         """Affiche l'erreur puis reprend le programme
 
         Args:
@@ -54,7 +54,7 @@ class Error:
         print(f"\nmessage : \n\t{self.msg}")
         if self.todo != None:
             print(f"\nSolution possible : \n\t{self.todo}")
-        print(f"\ndebug info : \n\t- Version de f-study : {debug_info['verion']} \n\t- Version de Python : {debug_info['py_version']} \n\t- OS : {debug_info['plateforme']}")
+        print(f"\ndebug info : \n\t- Version de f-study : {debug_info['version']} \n\t- Version de Python : {debug_info['py_version']} \n\t- OS : {debug_info['plateforme']}")
         print(f"\nerreur levée : \n\t{repr(e)}\n")
         input('Appuyer sur Entrée pour continuer...')
 
