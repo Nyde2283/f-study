@@ -16,6 +16,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Le bug empêchant les erreurs de s'afficher a été résolu.
 
+### GitHub
+
+- Les templates des issues et des pull requests ont été modifiés.
+
 ## [0.2.2] - 2022-10-26
 
 ### Changed
