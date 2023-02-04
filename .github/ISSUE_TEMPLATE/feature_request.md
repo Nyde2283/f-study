@@ -7,15 +7,18 @@ assignees: Nyde2283
 
 ---
 
-**Votre requête est liée à un problème ? Décrivez le ici**
-Une description claire et concise du problème.
-Ex. Ca me dérangeant que...
+# Description du problème
 
-**Décrivez la solution que vous avez envisagé**
-Une description claire et concise de ce que vous voudriez qu'il se passe.
+*Votre requête est liée à un problème ? Décrivez le ici de façon **claire**.*
 
-**Describe alternatives you've considered**
-Une description claire et concise de toute solution alternative ou fonctionnalité auxquelles vous auriez pensé.
+# Fonctionnalité envisagée
 
-**Informations additionnelles**
-Ajoutez n'importe quelle autre information ou screenshot à propos de la requête.
+*Une description claire et concise de ce que vous voudriez qu'il se passe.*
+
+# Solution envisagée
+
+*Une description claire de toute solution pratique à laquelle vous auriez pensé.*
+
+# Informations additionnelles
+
+*N'importe quelle information suplémentaire ou screenshot à ajouter.*
